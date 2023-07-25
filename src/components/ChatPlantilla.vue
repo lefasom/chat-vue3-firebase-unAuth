@@ -22,9 +22,13 @@ export default {
     </section>
     <section class="panel-body">
         <div class="messages-container">
+            <div class="fecha">
+                <p>12 de Julio de 2023</p>
+            </div>
             <div class="msj-me">
                 <img src="../assets/messi-perfil.jpg" alt="">
-                <div>
+
+                <div class="nodo">
                     <h3>Lionel Messi</h3>
                     <p>
                         Hola Leonardo , Me cominucaba para saber cuanto sale un sito web.
@@ -34,9 +38,12 @@ export default {
                 </div>
 
             </div>
+            <div class="fecha">
+                <p>Ayer</p>
+            </div>
             <div class="msj-me">
                 <img src="../assets/messi-perfil.jpg" alt="">
-                <div>
+                <div class="nodo">
                     <h3>Lionel Messi</h3>
                     <p>
                         Hola
@@ -45,18 +52,27 @@ export default {
 
                 </div>
             </div>
+            <div class="fecha">
+                <p>Hoy</p>
+            </div>
             <div class="msj-you">
-                <div>
+                <div class="nodo">
+
                     <h3>Lionel Messi</h3>
                     <p>
                         Hola
                     </p>
                     <span>20:30</span>
                 </div>
-                <img src="../assets/messi-perfil.jpg" alt="">
+                <div class="float">
+                    <img src="../assets/messi-perfil.jpg" alt="">
+                    <font-awesome-icon id="icon" icon="trash" />
+                </div>
+
             </div>
             <div class="msj-you">
-                <div>
+                <div class="nodo">
+
                     <h3>Lionel Messi</h3>
                     <p>
                         Hola Leonardo , Me cominucaba para saber cuanto sale un sito web.
@@ -64,7 +80,10 @@ export default {
                     <span>20:30</span>
 
                 </div>
-                <img src="../assets/messi-perfil.jpg" alt="">
+                <div class="float">
+                    <img src="../assets/messi-perfil.jpg" alt="">
+                    <font-awesome-icon id="icon" icon="trash" />
+                </div>
             </div>
         </div>
     </section>
@@ -77,6 +96,29 @@ export default {
 </template>
 
 <style scoped>
+.float{
+    display: flex;
+    flex-direction: column;
+}
+.fecha {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.fecha p {
+    background-color: #232D36;
+    text-align: right;
+    color: #798185;
+    font-size: 13px;
+
+    font-size: 14px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 5px;
+    border-radius: 10px;
+}
+
 .panel-body {
     background-color: #0C1D25;
     height: 100vh;
@@ -99,6 +141,16 @@ export default {
     display: flex;
 }
 
+.msj-you #icon {
+    color: #da5609;
+    background-color: #232D36;
+    border-radius: 100%;
+    font-size: 16px;
+    padding: 7px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
 .msj-you {
     width: 100%;
     justify-content: end;
@@ -119,7 +171,7 @@ export default {
 
 }
 
-.msj-me div {
+.msj-me .nodo {
     background-color: #01AF9C;
     display: flex;
     /* justify-content: center; */
@@ -135,9 +187,9 @@ export default {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.msj-you div {
+.msj-you .nodo {
     display: flex;
-    align-items: flex-end;
+    align-items: start;
     flex-direction: column;
     padding: 7px;
     max-width: 70%;
@@ -205,6 +257,7 @@ button {
     border: 0;
     outline: 0;
 }
+
 button:focus #icon {
     color: #01896B;
 }
@@ -226,17 +279,16 @@ button:focus #icon {
 }
 
 .panel-sup-name h3 {
-    font-size: 20px;
+    font-size: 17px;
     color: #FEFDFC;
-    font-family: 'Arial Narrow', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-left: 10px;
     font-weight: 300;
-    width: 250px;
-    text-align: center;
 }
 
 .panel-sup img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 100%;
     object-fit: cover;
 
@@ -268,4 +320,5 @@ button:focus #icon {
 .panel-body::-webkit-scrollbar-thumb:hover {
     background-color: #01896B;
     /* Color de la barra en sí al pasar el cursor sobre ella */
-}</style>
+}
+</style>
