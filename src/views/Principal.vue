@@ -1,7 +1,16 @@
 <template>
   <div class="principal">
     <header>
-      <router-link class="router" to="/Chat">Chat</router-link>
+      <router-link class="router" to="/Chat">
+        <font-awesome-icon icon="globe" />
+      </router-link>
+      <router-link v-if="conexion" class="router" to="/Chat">
+        Logearse
+      </router-link>
+
+      <router-link v-if="!conexion" class="router" to="/Chat">
+        Deslogearse
+      </router-link>
     </header>
     <div class="img">
       <p>
@@ -9,22 +18,33 @@
       </p>
     </div>
     <div class="form-unirse">
-      <label for="">ID de reunión o nombre de enlace personal</label>
-      <input type="text" placeholder="Introduzca el ID de reunión o el nombre de enlace personal">
-
+      <label for="">Identifica tu chat</label>
+      <input type="text" placeholder="Abre hilo, nombra un grupo, etc.">
+      <label for=""></label>
+      <input type="text" placeholder="Contraseña">
       <div>
         <button>
-          Unirse
-        </button>
-        <button>
-          Anfitrión
+          Crear
         </button>
       </div>
 
     </div>
   </div>
 </template>
+<script>
 
+export default {
+
+
+  setup() {
+    const conexion = true;
+    return {
+      conexion
+    }
+  }
+}
+</script>
+  
 <style scoped>
 .form-unirse {
   background-color: transparent;
@@ -37,10 +57,12 @@
   flex-direction: column;
   margin-left: 10%;
 }
+
 .form-unirse div {
   display: flex;
   justify-content: space-around;
 }
+
 label {
   margin-top: 5px;
   font-size: 12px;
@@ -107,7 +129,4 @@ header {
 
 }
 </style>
-  
-<script>
-</script>
   

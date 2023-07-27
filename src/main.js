@@ -14,14 +14,17 @@ import {
     faArrowLeft,
     faPaperPlane,
     faTrash,
-    faComments
+    faComments,
+    faGlobe,
 } from '@fortawesome/free-solid-svg-icons'
 /* add icons to the library */
 library.add(
     faArrowLeft,
     faPaperPlane,
     faTrash,
-    faComments
+    faComments,
+    faGlobe,
+
 )
 
 const app = createApp(App);
