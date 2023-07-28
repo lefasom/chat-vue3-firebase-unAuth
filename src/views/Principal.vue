@@ -1,7 +1,7 @@
 <template>
   <div class="principal">
     <header>
-      <router-link class="router" to="/Chat">
+      <router-link class="router" to="/Nube">
         <font-awesome-icon icon="globe" />
       </router-link>
       <router-link v-if="conexion" class="router" to="/Chat">
@@ -19,9 +19,9 @@
     </div>
     <div class="form-unirse">
       <label for="">Identifica tu chat</label>
-      <input type="text" placeholder="Abre hilo, nombra un grupo, etc.">
+      <input type="text" placeholder="Abre hilo, nombra un grupo, etc">
       <label for=""></label>
-      <input type="text" placeholder="Contraseña">
+      <input type="text" placeholder="Contraseña opcional">
       <div>
         <button>
           Crear

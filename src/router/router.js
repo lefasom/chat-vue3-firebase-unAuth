@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Video from '../views/Video.vue'
+import Nube from '../views/Nube.vue'
 import Chat from '../views/Chat.vue'
 import Principal from '../views/Principal.vue'
 
@@ -10,9 +10,9 @@ const routes = [
     component: Principal
   },
   {
-    path: '/Video',
-    name: 'Video',
-    component: Video
+    path: '/Nube',
+    name: 'Nube',
+    component: Nube
   },
   {
     path: '/Chat',
