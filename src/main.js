@@ -18,7 +18,11 @@ import {
     faGlobe,
     faLock,
     faLockOpen,
-    faPerson
+    faPerson,
+    faRightToBracket,
+    faRightFromBracket,
+    faUserPlus,
+    faGear
 } from '@fortawesome/free-solid-svg-icons'
 /* add icons to the library */
 library.add(
@@ -29,7 +33,11 @@ library.add(
     faGlobe,
     faLock,
     faLockOpen,
-    faPerson
+    faPerson,
+    faRightToBracket,
+    faRightFromBracket,
+    faUserPlus,
+    faGear
 
 )
 

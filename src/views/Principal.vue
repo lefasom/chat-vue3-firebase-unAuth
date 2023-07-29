@@ -4,12 +4,18 @@
       <router-link class="router" to="/Nube">
         <font-awesome-icon icon="globe" />
       </router-link>
-      <router-link v-if="conexion" class="router" to="/Chat">
-        Logearse
+      <router-link v-if="!conexion" class="router" to="/CreateUser">
+        <font-awesome-icon icon="user-plus" />
       </router-link>
-
-      <router-link v-if="!conexion" class="router" to="/Chat">
-        Deslogearse
+      <router-link v-if="!conexion" class="router" to="/Login">
+        <font-awesome-icon icon="right-to-bracket" />
+      </router-link>
+      <router-link v-if="conexion" class="router" to="/Setting">
+        <font-awesome-icon icon="gear" />
+        <font-awesome-icon icon="person" />
+      </router-link>
+      <router-link v-if="conexion" class="router" to="/Chat">
+        <font-awesome-icon icon="right-from-bracket" />
       </router-link>
     </header>
     <div class="img">
