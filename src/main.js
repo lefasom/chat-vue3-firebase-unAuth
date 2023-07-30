@@ -22,7 +22,8 @@ import {
     faRightToBracket,
     faRightFromBracket,
     faUserPlus,
-    faGear
+    faGear,
+    faBars
 } from '@fortawesome/free-solid-svg-icons'
 /* add icons to the library */
 library.add(
@@ -37,7 +38,8 @@ library.add(
     faRightToBracket,
     faRightFromBracket,
     faUserPlus,
-    faGear
+    faGear,
+    faBars
 
 )
 

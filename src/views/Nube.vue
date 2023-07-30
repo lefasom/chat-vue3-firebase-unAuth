@@ -166,7 +166,7 @@ h1 {
   padding: 10px;
   margin-top: 5px;
   font-size: 22px;
-  color: #074b6f;
+  color: #3192c7;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
 }

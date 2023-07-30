@@ -1,29 +1,14 @@
 <template>
   <div class="principal">
     <header>
-      <router-link class="router" to="/Nube">
-        <font-awesome-icon icon="globe" />
-      </router-link>
-      <router-link v-if="!conexion" class="router" to="/CreateUser">
-        <font-awesome-icon icon="user-plus" />
-      </router-link>
-      <router-link v-if="!conexion" class="router" to="/Login">
-        <font-awesome-icon icon="right-to-bracket" />
-      </router-link>
-      <router-link v-if="conexion" class="router" to="/Setting">
-        <font-awesome-icon icon="gear" />
-        <font-awesome-icon icon="person" />
-      </router-link>
-      <router-link v-if="conexion" class="router" to="/Chat">
-        <font-awesome-icon icon="right-from-bracket" />
-      </router-link>
+      <SidebarMenu />
     </header>
     <div class="img">
       <p>
         ch<font-awesome-icon id="icon" icon="comments" />tea
       </p>
     </div>
-    <div class="form-unirse">
+    <!-- <div class="form-unirse">
       <label for="">Identifica tu chat</label>
       <input type="text" placeholder="Abre hilo, nombra un grupo, etc">
       <label for=""></label>
@@ -34,18 +19,21 @@
         </button>
       </div>
 
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
-
+import SidebarMenu from "../components/SidebarMenu.vue";
 export default {
+  name: 'crear',
 
+  components: {
+    SidebarMenu,
+  },
 
   setup() {
-    const conexion = true;
+
     return {
-      conexion
     }
   }
 }
@@ -129,7 +117,7 @@ header {
 .img p {
   margin: auto;
   font-size: 88px;
-  color: #074b6f;
+  color: #3192c7;
   /* background-color: #232D36; */
 
 
