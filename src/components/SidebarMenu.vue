@@ -102,6 +102,8 @@ export default {
   text-decoration: none;
   padding: 0 5px;
   display: flex;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
 }
 
 .router p {
@@ -122,7 +124,7 @@ export default {
 ul button {
   background-color: transparent;
   color: #3192c7;
-  font-size: 27px;
+  font-size: 23px;
   border: 0;
   padding: 10px;
   cursor: pointer;
