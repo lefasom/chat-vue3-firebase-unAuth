@@ -73,7 +73,7 @@ import { ref } from 'vue';
 
 export default {
   setup() {
-    const isOpen = ref(false);
+    const isOpen = ref(true);
     const session = ref(true);
 
 
@@ -90,8 +90,10 @@ export default {
 };
 </script>
   
-<style>
+<style scoped>
+
 /* Estilos de ejemplo para el menú desplegable */
+
 .flex{
   display: flex;
   justify-content: end;

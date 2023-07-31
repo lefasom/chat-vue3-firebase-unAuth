@@ -45,6 +45,9 @@ export default {
 </script>
   
 <style scoped>
+header{
+
+}
 h1 {
   padding: 10px;
   font-size: 22px;
@@ -105,7 +108,7 @@ label {
 
 header {
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
 }
 
 .principal header .router {
