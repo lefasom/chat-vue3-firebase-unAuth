@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Setting from '../views/Setting.vue'
-import Nube from '../views/Nube.vue'
+import PerfilConfig from '../views/PerfilConfig.vue'
+import CreateChat from '../views/CreateChat.vue'
+import Descubre from '../views/Descubre.vue'
 import Login from '../views/Login.vue'
 import CreateUser from '../views/CreateUser.vue'
 import Chat from '../views/Chat.vue'
@@ -13,9 +14,9 @@ const routes = [
     component: Principal
   },
   {
-    path: '/Nube',
-    name: 'Nube',
-    component: Nube
+    path: '/Descubre',
+    name: 'Descubre',
+    component: Descubre
   },
   {
     path: '/Chat',
@@ -28,14 +29,19 @@ const routes = [
     component: Login
   },
   {
+    path: '/CreateChat',
+    name: 'CreateChat',
+    component: CreateChat
+  },
+  {
     path: '/CreateUser',
     name: 'CreateUser',
     component: CreateUser
   },
   {
-    path: '/Setting',
-    name: 'Setting',
-    component: Setting
+    path: '/PerfilConfig',
+    name: 'PerfilConfig',
+    component: PerfilConfig
   },
 ]
 

@@ -1,6 +1,14 @@
-<script setup>
+<script>
 import { ref } from 'vue';
+import LogoAndMenu from "../components/LogoAndMenu.vue";
+export default {
+    name: 'crear',
 
+    components: {
+        LogoAndMenu,
+    },
+
+    setup() {
 const mostrandoModal = ref(false);
 const entradaContraseña = ref('');
 
@@ -18,15 +26,20 @@ const verificarContraseña = () => {
   // Si es incorrecta, puedes mostrar un mensaje de error o hacer lo que consideres necesario.
   mostrandoModal.value = false; // Este código es solo para cerrar el modal en este ejemplo.
 };
+        return {
+          LogoAndMenu,
+          mostrarModal,
+          cerrarModal,
+          verificarContraseña
+        }
+    }
+}
+
 </script>
 
 <template>
   <div class="container-nube">
-    <router-link class="router" to="/">
-      <h1>
-        ch<font-awesome-icon id="icon" icon="comments" />tea
-      </h1>
-    </router-link>
+   <LogoAndMenu />
 
     <input type="text" placeholder="Buscar palabra clave o id">
     <section>

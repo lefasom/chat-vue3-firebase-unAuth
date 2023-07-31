@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <LogoAndMenu/>
+        <LogoAndMenu />
         <div class="user-registration">
             <form @submit.prevent="submitForm">
                 <div class="form-group">
@@ -17,46 +17,46 @@
                 </div>
                 <div class="form-group">
                     <label for="photo">Foto de Perfil:</label>
-                    <input type="file" id="photo" @change="handlePhotoChange" accept="image/*" required>
+                    <input type="file" id="photo">
                 </div>
-                <button type="submit">Registrarse</button>
+                <button type="submit">Actualizar Datos</button>
             </form>
         </div>
     </div>
 </template>
   
 <script>
-import LogoAndMenu from "../components/LogoAndMenu.vue";
-
+import LogoAndMenu from '../components/LogoAndMenu.vue';
 export default {
-  name: 'crear',
+    name: 'PerfilConfig',
 
-  components: {
-    LogoAndMenu,
-  },
+    components: {
+        LogoAndMenu,
+    },
 
-  setup() {
+    setup() {
 
-    return {
+        return {
+        }
     }
-  }
 }
 </script>
   
 <style scoped>
 .router {
-  text-decoration: none;
-  color: #FEFDFC;
+    text-decoration: none;
+    color: #FEFDFC;
 }
 
 
 h1 {
-  padding: 15px 10px;
-  font-size: 22px;
-  color: #3192c7;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 10px;
+    font-size: 22px;
+    color: #074b6f;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
 }
+
 .container {
     background-color: #0C1D25;
     height: 100vh;

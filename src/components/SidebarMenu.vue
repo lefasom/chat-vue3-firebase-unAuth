@@ -10,19 +10,19 @@
         <button @click="toggleDropdown">X</button>
       </div>
       <li>
-        <router-link class="router" to="/Nube">
+        <router-link class="router" to="/Descubre">
           <font-awesome-icon icon="globe" />
           <p>Descubre</p>
         </router-link>
       </li>
       <li>
-        <router-link class="router" to="/Chat">
+        <router-link class="router" to="/CreateChat">
           <font-awesome-icon icon="comments" />
           <p>Crear</p>
         </router-link>
       </li>
       <li>
-        <router-link class="router" to="/Chat">
+        <router-link class="router" to="/PerfilConfig">
           <font-awesome-icon icon="gear" />
           <p>Perfil</p>
         </router-link>
@@ -45,7 +45,7 @@
         <button @click="toggleDropdown">X</button>
       </div>
       <li>
-        <router-link class="router" to="/Nube">
+        <router-link class="router" to="/Descubre">
           <font-awesome-icon icon="globe" />
           <p>Descubre</p>
         </router-link>

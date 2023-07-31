@@ -1,50 +1,37 @@
 <template>
     <div class="container">
-        <router-link class="router" to="/">
-            <h1>
-                ch<font-awesome-icon id="icon" icon="comments" />tea
-            </h1>
-        </router-link>
+     <LogoAndMenu/>
         <div class="user-registration">
             <form @submit.prevent="submitForm">
                 <div class="form-group">
                     <label for="alias">Alias:</label>
-                    <input type="text" id="alias" v-model="user.alias" required>
+                    <input type="text">
                 </div>
                 <div class="form-group">
                     <label for="password">Contraseña:</label>
-                    <input type="password" id="password" v-model="user.password" required>
+                    <input type="password" >
                 </div>
                 <button type="submit">Entrar</button>
             </form>
         </div>
     </div>
 </template>
-  
 <script>
+import LogoAndMenu from "../components/LogoAndMenu.vue";
+
 export default {
-    data() {
-        return {
-            user: {
-                email: '',
-                password: '',
-                alias: '',
-                photo: null
-            }
-        };
-    },
-    methods: {
-        handlePhotoChange(event) {
-            const file = event.target.files[0];
-            // Aquí puedes realizar alguna acción con el archivo seleccionado, por ejemplo, mostrar una vista previa de la imagen.http://localhost:3000/
-            this.user.photo = file;
-        },
-        submitForm() {
-            // Aquí puedes enviar los datos del usuario al servidor o realizar alguna acción con ellos.
-            console.log(this.user);
-        }
+  name: 'Login',
+
+  components: {
+    LogoAndMenu,
+  },
+
+  setup() {
+
+    return {
     }
-};
+  }
+}
 </script>
   
 <style scoped>
