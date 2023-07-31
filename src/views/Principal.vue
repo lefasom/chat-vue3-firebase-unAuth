@@ -51,7 +51,6 @@ h1 {
   color: #3192c7;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   text-align: start;
-  width: 504px;
 }
 .form-unirse {
   background-color: transparent;
