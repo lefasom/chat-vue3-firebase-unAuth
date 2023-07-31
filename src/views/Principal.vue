@@ -1,6 +1,11 @@
 <template>
   <div class="principal">
     <header>
+      <router-link class="router" to="/">
+            <h1>
+                ch<font-awesome-icon id="icon" icon="comments" />tea
+            </h1>
+        </router-link>
       <SidebarMenu />
     </header>
     <div class="img">
@@ -40,6 +45,14 @@ export default {
 </script>
   
 <style scoped>
+h1 {
+  padding: 10px;
+  font-size: 22px;
+  color: #3192c7;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align: start;
+  width: 504px;
+}
 .form-unirse {
   background-color: transparent;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;

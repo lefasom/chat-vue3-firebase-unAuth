@@ -51,13 +51,13 @@
         </router-link>
       </li>
       <li>
-        <router-link class="router" to="/Chat">
+        <router-link class="router" to="/CreateUser">
           <font-awesome-icon icon="user-plus" />
           <p>Nuevo usuario</p>
         </router-link>
       </li>
       <li>
-        <router-link class="router" to="/Chat">
+        <router-link class="router" to="/Login">
           <font-awesome-icon icon="right-to-bracket" />
           <p>iniciar sesión</p>
         </router-link>
@@ -74,7 +74,7 @@ import { ref } from 'vue';
 export default {
   setup() {
     const isOpen = ref(false);
-    const session = ref(false);
+    const session = ref(true);
 
 
     const toggleDropdown = () => {
