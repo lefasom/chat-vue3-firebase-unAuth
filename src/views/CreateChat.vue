@@ -62,19 +62,17 @@ h1 {
     margin-top: 30%;
 }
 
-.form-unirse div {
-    display: flex;
-    justify-content: space-around;
-}
 
 label {
-    margin-top: 5px;
-    font-size: 12px;
-    color: #FEFDFC;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: block;
+    font-size: 15px;
+    margin: 5px 0;
+    color: #3192c7;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align: start;
 }
 
-.form-unirse input {
+.form-unirse input[type="text"] {
     margin-top: 10px;
     padding: 10px;
     border-radius: 10px;
@@ -86,13 +84,13 @@ label {
 }
 
 .form-unirse button {
-    margin-top: 10px;
-    padding: 5px;
-    border-radius: 10px;
     background-color: transparent;
-    color: #FEFDFC;
-    font-size: 15px;
-    border: 0;
+    color: #3192c7;
+    padding: 10px 20px;
+    border: 1px solid #3192c7;
+    border-radius: 5px;
     cursor: pointer;
+    margin: 14px;
+    margin-left: 0px;
 }
 </style>
