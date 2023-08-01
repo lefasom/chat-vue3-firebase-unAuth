@@ -26,6 +26,7 @@ import {
     faBars,
     faCamera
 } from '@fortawesome/free-solid-svg-icons'
+import store from './vuex/store'
 /* add icons to the library */
 library.add(
     faArrowLeft,
@@ -47,5 +48,5 @@ library.add(
 
 const app = createApp(App);
 app.component('font-awesome-icon', FontAwesomeIcon)
-
+app.use(store);
 app.use(router).mount('#app')
