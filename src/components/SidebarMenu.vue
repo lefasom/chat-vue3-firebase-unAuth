@@ -39,8 +39,12 @@
           <p>Cerrar sesión</p>
         </router-link>
       </li>
-      <button  @click="modo" >modo</button>
-
+      <li class="router">
+        <p >
+          Light
+        </p>
+        <input type="checkbox" value="modoNocturno" @click="modo">
+      </li>
     </ul>
     <ul v-if="!session" :class="{ show: isOpen }">
       <div class="flex">
@@ -115,6 +119,7 @@ export default {
   
 <style scoped>
 /* Estilos de ejemplo para el menú desplegable */
+/* Estilos para el interruptor cuando está activado */
 
 .flex {
   display: flex;
@@ -155,7 +160,7 @@ export default {
 .barside2 .menu {
   position: fixed;
   background-color: transparent;
-  color: #3192c7;
+  color: #222;
   font-size: 27px;
   border: 0;
   padding: 10px;

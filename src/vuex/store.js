@@ -4,7 +4,7 @@ import { createStore } from 'vuex';
 const store = createStore({
   state() {
     return {
-      modoNocturno: false,
+      modoNocturno: true,
     };
   },
   mutations: {
