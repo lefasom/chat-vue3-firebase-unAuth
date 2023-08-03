@@ -110,7 +110,14 @@ export default {
 <style scoped>
 /* Estilos de ejemplo para el menú desplegable */
 /* Estilos para el interruptor cuando está activado */
+
+.barside,.barside2{
+  position: absolute;
+  z-index: 999999999;
+}
 .modo {
+
+
   margin-left: 11px;
   margin-top: 10px;
 }
