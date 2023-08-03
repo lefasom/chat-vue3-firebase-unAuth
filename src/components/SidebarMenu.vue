@@ -39,12 +39,10 @@
           <p>Cerrar sesión</p>
         </router-link>
       </li>
-      <li class="router">
-        <p >
-          Light
-        </p>
-        <input type="checkbox" value="modoNocturno" @click="modo">
-      </li>
+      <div class="modo">
+       
+        <Switch :modo="modoNocturno" @click="modo"/>
+      </div>
     </ul>
     <ul v-if="!session" :class="{ show: isOpen }">
       <div class="flex">
@@ -80,43 +78,42 @@
 import { ref } from 'vue';
 import { onMounted, computed } from 'vue'
 import { useStore } from 'vuex';
-
+import Switch from './Switch.vue';
 export default {
-
-  name: 'sidebarMenu',
-
-  setup() {
-    const store = useStore();
-    const modoNocturno = computed(() => store.state.modoNocturno);
-    const isOpen = ref(true);
-    const session = ref(true);
-
-
-    const toggleDropdown = () => {
-      isOpen.value = !isOpen.value;
-    };
-
-    const modo = async () => {
-         store.dispatch('modificoModoNocturno',modoNocturno);
-           
-        }
-    
-
-    return {
-      isOpen,
-      toggleDropdown,
-      session,
-      modoNocturno,
-      modo
-    };
-  },
+    name: 'sidebarMenu',
+    components: {
+        Switch
+    },
+    setup() {
+        const store = useStore();
+        const modoNocturno = computed(() => store.state.modoNocturno);
+        const isOpen = ref(true);
+        const session = ref(true);
+        const toggleDropdown = () => {
+            isOpen.value = !isOpen.value;
+        };
+        const modo = async () => {
+            store.dispatch('modificoModoNocturno', modoNocturno);
+        };
+        return {
+            isOpen,
+            toggleDropdown,
+            session,
+            modoNocturno,
+            modo
+        };
+    },
+    components: { Switch }
 };
 </script>
   
 <style scoped>
 /* Estilos de ejemplo para el menú desplegable */
 /* Estilos para el interruptor cuando está activado */
-
+.modo {
+  margin-left: 11px;
+  margin-top: 10px;
+}
 .flex {
   display: flex;
   justify-content: end;
