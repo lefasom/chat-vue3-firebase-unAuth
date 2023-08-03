@@ -22,7 +22,6 @@ export default {
 </script>
 
 <template>
-    <SidebarMenu/>
     <div  :class="modoNocturno?'nocturno':'dia'">
     
     <section class="panel-sup">
@@ -355,7 +354,7 @@ button {
 }
 
 .dia .panel-body {
-    background-color: #d8e0ca;
+    background-color: #EFEAE2;
     height: 100vh;
     width: 100%;
     padding: 80px 0;
@@ -377,8 +376,8 @@ button {
 }
 
 .dia .msj-you #icon {
-    color: #fd80a1;
-    background-color: #f6fbff;
+    color: #074b6f;
+    background-color: #fff;
     border-radius: 100%;
     font-size: 16px;
     padding: 7px;
@@ -401,7 +400,7 @@ button {
 .dia .msj-me span {
     width: 100%;
     text-align: right;
-    color: #e3eaee;
+    color: #fff;
     font-size: 13px;
 
 }
@@ -414,10 +413,10 @@ button {
     max-width: 70%;
     margin-left: 9px;
     margin-right: 10px;
-    background-color: #15b491aa;
+    background-color: #fff;
     border-radius: 10px;
     flex-direction: column;
-    color: #ffffff;
+    color: #06D0C1;
     font-size: 14px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
@@ -431,9 +430,9 @@ button {
     margin-right: 9px;
     margin-left: 20%;
     padding: 10px;
-    background-color: #ffffff;
+    background-color: #D9FDD3;
     border-radius: 10px;
-    color: #b7c539;
+    color: #06D0C1;
     font-size: 14px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
@@ -442,7 +441,7 @@ button {
     margin-top: 5px;
 
     font-size: 15px;
-    color: #FEFDFC;
+    color: #333;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
@@ -457,9 +456,9 @@ button {
 }
 
 .dia .panel-sup {
-    width: 90%;
+    width: 100%;
     height: 70px;
-    background-color: #d8e0ca;
+    background-color: #074b6f;
     display: flex;
     align-items: center;
     position: fixed;
@@ -469,7 +468,7 @@ button {
 .dia .panel-inf {
     width: 100%;
     height: 65px;
-    background-color: #d8e0ca;
+    background-color: #EFEAE2;
     position: fixed;
     bottom: 0;
     display: flex;
@@ -515,10 +514,10 @@ button {
 
 .dia .panel-sup-name h3 {
     font-size: 17px;
-    color: #074b6f;
+    color: #f6fbff;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin-left: 10px;
-    font-weight: 300;
+    font-weight: 500;
 }
 
 .panel-sup img {
@@ -541,19 +540,19 @@ button {
 .dia .panel-body::-webkit-scrollbar {
     width: 8px;
     /* Ancho de la barra */
-    background-color: #d8e0ca;
+    background-color: #fff;
     /* Color de fondo de la barra */
 }
 
 .dia .panel-body::-webkit-scrollbar-thumb {
-    background-color: #ffffff;
+    background-color: #074b6f;
     /* Color de la barra en sí */
     border-radius: 10px;
     /* Borde redondeado */
 }
 
 .dia .panel-body::-webkit-scrollbar-thumb:hover {
-    background-color: #d8e0ca;
+    background-color: #fff;
     /* Color de la barra en sí al pasar el cursor sobre ella */
 }
 </style>
