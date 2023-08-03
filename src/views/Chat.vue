@@ -1,19 +1,20 @@
 
 
 <template>
-    <ChatPlantilla/>
+  <ChatPlantilla/>
 </template>
 
 <script>
 import ChatPlantilla from '../components/ChatPlantilla.vue'
 export default {
   components: {
-    ChatPlantilla
+    ChatPlantilla,
   },
+ 
   setup() {
 
     return {
-        ChatPlantilla
+        ChatPlantilla,
     };
   }
 }

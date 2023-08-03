@@ -1,5 +1,5 @@
 <template>
-  <div class="principal">
+  <div :class="modoNocturno ? 'principal' : 'nocturno'">
   <LogoAndMenu />
     <div class="img">
       <p>
@@ -11,6 +11,8 @@
 </template>
 <script>
 import LogoAndMenu from "../components/LogoAndMenu.vue";
+import { computed } from 'vue'
+import { useStore } from 'vuex';
 
 export default {
   name: 'crear',
@@ -20,8 +22,11 @@ export default {
   },
 
   setup() {
-
+    const store = useStore();
+    const modoNocturno = computed(() => store.state.modoNocturno);
+   
     return {
+      modoNocturno
     }
   }
 }
@@ -29,13 +34,6 @@ export default {
   
 <style scoped>
 
-h1 {
-  padding: 10px;
-  font-size: 22px;
-  color: #3192c7;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  text-align: start;
-}
 
 
 .principal {
@@ -56,7 +54,33 @@ h1 {
 
 }
 
-.img p {
+.principal .img p {
+  margin: auto;
+  font-size: 88px;
+  color: #3192c7;
+  /* background-color: #232D36; */
+
+
+}
+.nocturno {
+  background-color: #fff;
+  height: 100vh;
+}
+
+
+
+
+.nocturno .img {
+  margin-top: 33%;
+
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+
+}
+
+.nocturno .img p {
   margin: auto;
   font-size: 88px;
   color: #3192c7;

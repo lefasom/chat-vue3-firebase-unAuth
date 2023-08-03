@@ -11,31 +11,31 @@
       </div>
       <li>
         <router-link :class="modoNocturno?'router':'router'" to="/Descubre">
-          <font-awesome-icon icon="globe" />
+          <font-awesome-icon id="icon" icon="globe" />
           <p>Descubre</p>
         </router-link>
       </li>
       <li>
         <router-link :class="modoNocturno?'router':'router'" to="/CreateChat">
-          <font-awesome-icon icon="comments" />
+          <font-awesome-icon id="icon" icon="comments" />
           <p>Crear</p>
         </router-link>
       </li>
       <li>
         <router-link :class="modoNocturno?'router':'router'" to="/PerfilConfig">
-          <font-awesome-icon icon="gear" />
+          <font-awesome-icon id="icon" icon="gear" />
           <p>Perfil</p>
         </router-link>
       </li>
       <li>
         <router-link :class="modoNocturno?'router':'router'" to="/Chat">
-          <font-awesome-icon icon="person" />
+          <font-awesome-icon id="icon" icon="person" />
           <p>Amigos</p>
         </router-link>
       </li>
       <li>
         <router-link :class="modoNocturno?'router':'router'" to="/Chat">
-          <font-awesome-icon icon="right-from-bracket" />
+          <font-awesome-icon id="icon" icon="right-from-bracket" />
           <p>Cerrar sesión</p>
         </router-link>
       </li>
@@ -52,19 +52,19 @@
       </div>
       <li>
         <router-link :class="modoNocturno?'router':'router'" to="/Descubre">
-          <font-awesome-icon icon="globe" />
+          <font-awesome-icon id="icon" icon="globe" />
           <p>Descubre</p>
         </router-link>
       </li>
       <li>
         <router-link :class="modoNocturno?'router':'router'" to="/CreateUser">
-          <font-awesome-icon icon="user-plus" />
+          <font-awesome-icon id="icon" icon="user-plus" />
           <p>Nuevo usuario</p>
         </router-link>
       </li>
       <li>
         <router-link :class="modoNocturno?'router':'router'" to="/Login">
-          <font-awesome-icon icon="right-to-bracket" />
+          <font-awesome-icon id="icon" icon="right-to-bracket" />
           <p>iniciar sesión</p>
         </router-link>
       </li>
@@ -97,11 +97,7 @@ export default {
     };
 
     const modo = async () => {
-                    
-                    
-          console.log(modoNocturno.value)
-                    store.dispatch('modificoModoNocturno',modoNocturno);
-                    
+         store.dispatch('modificoModoNocturno',modoNocturno);
            
         }
     
@@ -147,7 +143,7 @@ export default {
   margin: 0 20px;
 }
 
-.barside .menu {
+ .menu {
   position: fixed;
   background-color: transparent;
   color: #3192c7;
@@ -157,28 +153,10 @@ export default {
   right: 0;
   cursor: pointer;
 }
-.barside2 .menu {
-  position: fixed;
-  background-color: transparent;
-  color: #222;
-  font-size: 27px;
-  border: 0;
-  padding: 10px;
-  right: 0;
-  cursor: pointer;
-}
-.barside ul button {
-  background-color: transparent;
-  color: #3192c7;
-  font-size: 23px;
-  border: 0;
-  padding: 10px;
-  cursor: pointer;
 
-}
-.barside2 ul button {
+ ul button {
   background-color: transparent;
-  color: #050b0e;
+  color: #3192c7;
   font-size: 23px;
   border: 0;
   padding: 10px;
@@ -212,15 +190,28 @@ export default {
   transition: 0.5s ease-out;
 
 }
+
+.barside2 #icon {
+color: #3192c7;
+
+}
 ul li {
   padding: 8px;
   cursor: pointer;
+  z-index: 9999999;
 }
 
-ul li:hover {
+.barside ul li:hover {
   background-color: #3192c7;
 }
 
+.barside2 ul li:hover {
+  background-color: #2d3133;
+}
+.barside2 ul li:hover .router {
+  color: #f8f7f6;
+
+}
 ul.show {
   display: block;
   position: fixed;
