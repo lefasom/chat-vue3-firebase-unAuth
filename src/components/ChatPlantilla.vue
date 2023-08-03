@@ -125,7 +125,7 @@ export default {
     justify-content: center;
 }
 
-.nocturno.fecha p {
+.nocturno .fecha p {
     background-color: #232D36;
     text-align: right;
     color: #7d7985;
@@ -142,7 +142,7 @@ export default {
     background-color: #0C1D25;
     height: 100vh;
     width: 100%;
-    padding: 80px 0;
+    padding: 80px 7px;
     overflow-y: hidden;
     overflow-y: scroll;
 }
@@ -319,6 +319,7 @@ button {
     border-radius: 100%;
     object-fit: cover;
 
+
 }
 
 
@@ -357,7 +358,7 @@ button {
     background-color: #EFEAE2;
     height: 100vh;
     width: 100%;
-    padding: 80px 0;
+    padding: 80px 7px;
     overflow-y: hidden;
     overflow-y: scroll;
 }
