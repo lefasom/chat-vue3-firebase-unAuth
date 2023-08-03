@@ -12,7 +12,6 @@
     box-shadow: .6px 0px 2px 1px #3192c770;
     display: flex;
     align-items: center;
-    background-color: rgb(12, 59, 66);
 }
 .container-ss{
     border: 1px solid #4083a3;
