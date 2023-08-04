@@ -1,18 +1,18 @@
 <template>
-    <div  :class="modoNocturno ? 'container' : 'container2'">
+    <div :class="modoNocturno ? 'container' : 'container2'">
         <LogoAndMenu />
         <div class="user-registration">
             <form @submit.prevent="submitForm">
                 <div class="form-group">
                     <label for="customImageInput" id="customImageLabel">
                         <font-awesome-icon class="img1" icon="camera" />
-                        <img src="../assets/messi-perfil.jpg" class="img2"  alt="Imagen Personalizada">
+                        <img src="../assets/messi-perfil.jpg" class="img2" alt="Imagen Personalizada">
                     </label>
                     <input type="file" id="customImageInput" style="display: none;">
                 </div>
-              
-                
-                
+
+
+
                 <div class="form-group">
                     <label for="">Correo Electronico</label>
                     <input type="email" id="email" placeholder="Correo Electronico">
@@ -45,8 +45,8 @@ export default {
 
     setup() {
         const store = useStore();
-    const modoNocturno = computed(() => store.state.modoNocturno);
-   
+        const modoNocturno = computed(() => store.state.modoNocturno);
+
         return {
             modoNocturno
         }
@@ -73,10 +73,12 @@ h1 {
     background-color: #0C1D25;
     height: 100vh;
 }
+
 .container2 {
     background-color: #fff;
     height: 100vh;
 }
+
 .container .user-registration {
     font-family: Arial, sans-serif;
     width: 80%;
@@ -87,6 +89,7 @@ h1 {
     background-color: #0C1D25;
     margin-top: 10%;
 }
+
 .container2 .user-registration {
     font-family: Arial, sans-serif;
     width: 80%;
@@ -97,6 +100,7 @@ h1 {
     background-color: #fff;
     margin-top: 10%;
 }
+
 h2 {
     color: #FEFDFC;
 }
@@ -110,17 +114,19 @@ h2 {
     font-size: 15px;
     margin: 5px 0;
     color: #3192c7;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  text-align: start;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: start;
 }
+
 .container2 label {
     display: block;
     font-size: 15px;
     margin: 5px 0;
     color: #5db8e8;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  text-align: start;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: start;
 }
+
 .container input[type="text"],
 .container input[type="email"],
 .container input[type="password"],
@@ -132,6 +138,7 @@ h2 {
     background-color: transparent;
     color: #FEFDFC;
 }
+
 .container2 input[type="text"],
 .container2 input[type="email"],
 .container2 input[type="password"],
@@ -143,12 +150,11 @@ h2 {
     background-color: transparent;
     color: #0C1D25;
 }
-.container2 input::placeholder{
-    color: #444;
-}
-.container input::placeholder{
+
+.container input::placeholder {
     color: #777778;
 }
+
 .container button {
     background-color: transparent;
     color: #3192c7;
@@ -156,9 +162,10 @@ h2 {
     border: 1px solid #3192c7;
     border-radius: 5px;
     cursor: pointer;
-    margin:0 14px;
+    margin: 0 14px;
 
 }
+
 .container2 button {
     background-color: transparent;
     color: #3192c7;
@@ -166,9 +173,10 @@ h2 {
     border: 1px solid #3192c7;
     border-radius: 5px;
     cursor: pointer;
-    margin:0 14px;
+    margin: 0 14px;
 
 }
+
 .container #customImageLabel {
     /* Estilo para el contenedor de la imagen personalizada */
     /* Asegúrate de establecer el tamaño adecuado para la imagen personalizada */
@@ -178,6 +186,7 @@ h2 {
     border: 2px solid #ccc;
     display: inline-block;
 }
+
 .container2 #customImageLabel {
     /* Estilo para el contenedor de la imagen personalizada */
     /* Asegúrate de establecer el tamaño adecuado para la imagen personalizada */
@@ -187,9 +196,10 @@ h2 {
     border: 2px solid #ccc;
     display: inline-block;
 }
+
 .container #customImageLabel .img1 {
     /* Asegúrate de que la imagen personalizada se ajuste correctamente al contenedor */
-   cursor: pointer;
+    cursor: pointer;
     object-fit: cover;
     position: relative;
     bottom: -69%;
@@ -201,9 +211,10 @@ h2 {
     padding: 7px;
 
 }
+
 .container2 #customImageLabel .img1 {
     /* Asegúrate de que la imagen personalizada se ajuste correctamente al contenedor */
-   cursor: pointer;
+    cursor: pointer;
     object-fit: cover;
     position: relative;
     bottom: -69%;
@@ -216,17 +227,17 @@ h2 {
     color: #fff;
 
 }
+
 #customImageLabel .img2 {
     /* Asegúrate de que la imagen personalizada se ajuste correctamente al contenedor */
     width: 100%;
     height: 100%;
     object-fit: cover;
-  border-radius: 100%;
-  position: relative;
-  top: -32px;
-  z-index: 9;
-  cursor: pointer;
+    border-radius: 100%;
+    position: relative;
+    top: -32px;
+    z-index: 9;
+    cursor: pointer;
 
-}
-</style>
+}</style>
   
