@@ -417,7 +417,7 @@ button {
     background-color: #fff;
     border-radius: 10px;
     flex-direction: column;
-    color: #06D0C1;
+    color: #074b6f;
     font-size: 14px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
@@ -433,7 +433,7 @@ button {
     padding: 10px;
     background-color: #d3f5fd;
     border-radius: 10px;
-    color: #074b6f;
+    color: #05beb1;
     font-size: 14px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
