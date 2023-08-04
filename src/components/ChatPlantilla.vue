@@ -431,9 +431,9 @@ button {
     margin-right: 9px;
     margin-left: 20%;
     padding: 10px;
-    background-color: #D9FDD3;
+    background-color: #d3f5fd;
     border-radius: 10px;
-    color: #06D0C1;
+    color: #05beb1;
     font-size: 14px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }

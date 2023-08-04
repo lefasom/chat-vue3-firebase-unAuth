@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div  :class="modoNocturno ? 'container' : 'container2'">
         <LogoAndMenu />
         <div class="user-registration">
             <form @submit.prevent="submitForm">
@@ -34,6 +34,8 @@
   
 <script>
 import LogoAndMenu from '../components/LogoAndMenu.vue';
+import { computed } from 'vue'
+import { useStore } from 'vuex';
 export default {
     name: 'PerfilConfig',
 
@@ -42,8 +44,11 @@ export default {
     },
 
     setup() {
-
+        const store = useStore();
+    const modoNocturno = computed(() => store.state.modoNocturno);
+   
         return {
+            modoNocturno
         }
     }
 }
@@ -68,8 +73,11 @@ h1 {
     background-color: #0C1D25;
     height: 100vh;
 }
-
-.user-registration {
+.container2 {
+    background-color: #fff;
+    height: 100vh;
+}
+.container .user-registration {
     font-family: Arial, sans-serif;
     width: 80%;
     max-width: 500px;
@@ -79,7 +87,16 @@ h1 {
     background-color: #0C1D25;
     margin-top: 10%;
 }
-
+.container2 .user-registration {
+    font-family: Arial, sans-serif;
+    width: 80%;
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-top: 10%;
+}
 h2 {
     color: #FEFDFC;
 }
@@ -88,7 +105,7 @@ h2 {
     margin: 15px;
 }
 
-label {
+.container label {
     display: block;
     font-size: 15px;
     margin: 5px 0;
@@ -96,11 +113,18 @@ label {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   text-align: start;
 }
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="file"] {
+.container2 label {
+    display: block;
+    font-size: 15px;
+    margin: 5px 0;
+    color: #5db8e8;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align: start;
+}
+.container input[type="text"],
+.container input[type="email"],
+.container input[type="password"],
+.container input[type="file"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #999;
@@ -108,8 +132,24 @@ input[type="file"] {
     background-color: transparent;
     color: #FEFDFC;
 }
-
-button {
+.container2 input[type="text"],
+.container2 input[type="email"],
+.container2 input[type="password"],
+.container2 input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #777;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #0C1D25;
+}
+.container2 input::placeholder{
+    color: #444;
+}
+.container input::placeholder{
+    color: #777778;
+}
+.container button {
     background-color: transparent;
     color: #3192c7;
     padding: 10px 20px;
@@ -119,10 +159,18 @@ button {
     margin:0 14px;
 
 }
-
-#customImageLabel {
-    /* Estilo para el contenedor de la imagen personalizada */
+.container2 button {
+    background-color: transparent;
+    color: #3192c7;
+    padding: 10px 20px;
+    border: 1px solid #3192c7;
+    border-radius: 5px;
     cursor: pointer;
+    margin:0 14px;
+
+}
+.container #customImageLabel {
+    /* Estilo para el contenedor de la imagen personalizada */
     /* Asegúrate de establecer el tamaño adecuado para la imagen personalizada */
     width: 100px;
     height: 100px;
@@ -130,10 +178,18 @@ button {
     border: 2px solid #ccc;
     display: inline-block;
 }
-
-#customImageLabel .img1 {
+.container2 #customImageLabel {
+    /* Estilo para el contenedor de la imagen personalizada */
+    /* Asegúrate de establecer el tamaño adecuado para la imagen personalizada */
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    border: 2px solid #ccc;
+    display: inline-block;
+}
+.container #customImageLabel .img1 {
     /* Asegúrate de que la imagen personalizada se ajuste correctamente al contenedor */
-   
+   cursor: pointer;
     object-fit: cover;
     position: relative;
     bottom: -69%;
@@ -145,6 +201,21 @@ button {
     padding: 7px;
 
 }
+.container2 #customImageLabel .img1 {
+    /* Asegúrate de que la imagen personalizada se ajuste correctamente al contenedor */
+   cursor: pointer;
+    object-fit: cover;
+    position: relative;
+    bottom: -69%;
+    right: -73%;
+    border-radius: 100%;
+    z-index: 999;
+    background-color: #5db8e8;
+    font-size: 16px;
+    padding: 7px;
+    color: #fff;
+
+}
 #customImageLabel .img2 {
     /* Asegúrate de que la imagen personalizada se ajuste correctamente al contenedor */
     width: 100%;
@@ -154,6 +225,7 @@ button {
   position: relative;
   top: -32px;
   z-index: 9;
+  cursor: pointer;
 
 }
 </style>

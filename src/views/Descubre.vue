@@ -1,4 +1,6 @@
 <script>
+import { computed } from 'vue'
+import { useStore } from 'vuex';
 import { ref } from 'vue';
 import LogoAndMenu from "../components/LogoAndMenu.vue";
 export default {
@@ -9,6 +11,9 @@ export default {
     },
 
     setup() {
+      const store = useStore();
+    const modoNocturno = computed(() => store.state.modoNocturno);
+   
 const mostrandoModal = ref(false);
 const entradaContraseña = ref('');
 
@@ -30,7 +35,8 @@ const verificarContraseña = () => {
           LogoAndMenu,
           mostrarModal,
           cerrarModal,
-          verificarContraseña
+          verificarContraseña,
+          modoNocturno
         }
     }
 }
@@ -38,7 +44,7 @@ const verificarContraseña = () => {
 </script>
 
 <template>
-  <div class="container-nube">
+  <div  :class="modoNocturno ? 'container-nube' : 'container2-nube'">
    <LogoAndMenu />
 
     <input type="text" placeholder="Buscar palabra clave o id">
@@ -50,7 +56,8 @@ const verificarContraseña = () => {
           <div class="GrupName" style="color: rgb(251, 147, 249);">
             Manager
           </div>
-          <div style="color: #dd940d;">
+          <div :style="modoNocturno? 'color:#dd940d': 'color:#ead927'">
+
             <font-awesome-icon icon="person" /> 3
           </div>
 
@@ -69,10 +76,10 @@ const verificarContraseña = () => {
             <!-- <font-awesome-icon style="color: #db5c7e;" icon="lock" /> -->
             <!-- <font-awesome-icon style="color: #66e78d;" icon="lock-open" /> -->
           </div>
-          <div style="color: rgb(71, 208, 238);">
+          <div :style="modoNocturno? 'color:#3192c7': 'color:rgb(173, 220, 246)'">
             Visitor
           </div>
-          <div style="color: #dd940d;">
+          <div :style="modoNocturno? 'color:#dd940d': 'color:#f9fd8e'">
             <font-awesome-icon icon="person" /> 8
           </div>
         </article>
@@ -111,7 +118,7 @@ const verificarContraseña = () => {
 }
 
 .modal-contenido {
-  background-color: #074b6f;
+  background-color: #3192c7;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -147,7 +154,7 @@ const verificarContraseña = () => {
   cursor: pointer;
 }
 
-.btn-cancelar {
+.container-nube .btn-cancelar {
   background-color: #999;
   color: #0C1D25;
   padding: 8px 20px;
@@ -155,14 +162,14 @@ const verificarContraseña = () => {
   border-radius: 5px;
   cursor: pointer;
 }
-button{
+.container-nube button{
   background-color: transparent;
   border:0;
   outline: 0;
   width: 100vw;
   color: #FEFDFC;  
 }
-.router {
+.container-nube .router {
   text-decoration: none;
   color: #FEFDFC;
 }
@@ -175,7 +182,7 @@ button{
   flex-direction: column;
 }
 
-h1 {
+.container-nube h1 {
   padding: 10px;
   margin-top: 5px;
   font-size: 22px;
@@ -184,14 +191,14 @@ h1 {
 
 }
 
-label {
+.container-nube label {
   margin-top: 5px;
   font-size: 12px;
   color: #FEFDFC;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-input {
+.container-nube input {
   margin-top: 10px;
   margin: auto;
   padding: 10px;
@@ -203,7 +210,7 @@ input {
 
 }
 
-section {
+.container-nube section {
   border: 1px solid #FEFDFC;
   width: 90%;
   height: 70vh;
@@ -215,13 +222,13 @@ section {
   overflow-y: scroll;
 }
 
-section div {
+.container-nube section div {
   margin: 0 5px;
 
 
 }
 
-article {
+ .container-nube article {
   background-color: #074b6f;
   display: flex;
   margin-top: 3px;
@@ -230,7 +237,7 @@ article {
   align-items: center;
 }
 
-section::-webkit-scrollbar {
+.container-nube section::-webkit-scrollbar {
   width: 8px;
   /* Ancho de la barra */
   background-color: #0C1D25;
@@ -247,5 +254,85 @@ section::-webkit-scrollbar-thumb {
 section::-webkit-scrollbar-thumb:hover {
   background-color: #074b6f;
   /* Color de la barra en sí al pasar el cursor sobre ella */
+}
+.container2-nube .btn-cancelar {
+  background-color: #999;
+  color: #0C1D25;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.container2-nube button{
+  background-color: transparent;
+  border:0;
+  outline: 0;
+  width: 100vw;
+  color: #FEFDFC;  
+}
+.container2-nube .router {
+  text-decoration: none;
+  color: #FEFDFC;
+}
+
+.container2-nube {
+  background-color: #fff;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.container2-nube h1 {
+  padding: 10px;
+  margin-top: 5px;
+  font-size: 22px;
+  color: #3192c7;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+
+.container2-nube label {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #FEFDFC;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.container2-nube input {
+  margin-top: 10px;
+  margin: auto;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #999;
+  outline-color: #0C1D25;
+  background-color: transparent;
+  color: #0C1D25;
+
+}
+
+.container2-nube section {
+  border: 1px solid #0C1D25;
+  width: 90%;
+  height: 70vh;
+  margin: auto;
+  margin-top: 20px;
+  color: #FEFDFC;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.container2-nube article {
+  background-color: #3192c7;
+  display: flex;
+  margin-top: 3px;
+  height: 20px;
+  cursor: pointer;
+  align-items: center;
+}
+ section div {
+  margin: 0 5px;
+
+
 }
 </style>
