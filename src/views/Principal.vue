@@ -1,17 +1,17 @@
 <template>
   <div :class="modoNocturno ? 'principal' : 'nocturno'">
-  <LogoAndMenu />
+    <LogoAndMenu />
     <div class="img">
       <p>
         ch<font-awesome-icon id="icon" icon="comments" />tea
       </p>
     </div>
-   
+
   </div>
 </template>
 <script>
 import LogoAndMenu from "../components/LogoAndMenu.vue";
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex';
 
 export default {
@@ -24,7 +24,13 @@ export default {
   setup() {
     const store = useStore();
     const modoNocturno = computed(() => store.state.modoNocturno);
-   
+    const conexion = computed(() => store.state.conexion);
+
+    onMounted(async () => {
+      await store.dispatch('fetchUsuarios')
+      console.log(conexion.value)
+    })
+
     return {
       modoNocturno
     }
@@ -33,9 +39,6 @@ export default {
 </script>
   
 <style scoped>
-
-
-
 .principal {
   background-color: #0C1D25;
   height: 100vh;
@@ -62,6 +65,7 @@ export default {
 
 
 }
+
 .nocturno {
   background-color: #fff;
   height: 100vh;

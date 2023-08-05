@@ -1,6 +1,8 @@
 <script>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router'
+
 import { ref } from 'vue';
 import LogoAndMenu from "../components/LogoAndMenu.vue";
 export default {
@@ -11,12 +13,18 @@ export default {
   },
 
   setup() {
+    const router = useRouter()
     const store = useStore();
     const modoNocturno = computed(() => store.state.modoNocturno);
+    const conexion = computed(() => store.state.conexion);
 
     const array = [{ "id": 1, "grupo": "Lucas Vargas" }, { "id": 2, "grupo": "Mike Huaman" }, { "id": 3, "grupo": "Pedro perez" }, { "id": 4, "grupo": "Franco Echegaray" }, { "id": 5, "grupo": "Ignacio Herrera" }, { "id": 6, "grupo": "Lisandro Tamola" }, { "id": 7, "grupo": "Renzo Perez" }, { "id": 8, "grupo": "Dylan Sombra" }, { "id": 9, "grupo": "Diego Sanfurgo" }, { "id": 10, "grupo": "Jose Lagos" }, { "id": 11, "grupo": "Nicolas Estalles" }, { "id": 12, "grupo": "Eros Silva" }];
 
-
+onMounted(()=>{
+  if(conexion.value==false){
+    router.push('/Login')
+  }
+})
     return {
       LogoAndMenu,
       modoNocturno,

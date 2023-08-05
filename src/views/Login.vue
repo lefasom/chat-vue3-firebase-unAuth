@@ -5,21 +5,21 @@
             <form @submit.prevent="submitForm">
                 <div class="form-group">
                     <label for="alias">Alias:</label>
-                    <input type="text">
+                    <input v-model="alias" type="text">
                 </div>
                 <div class="form-group">
                     <label for="password">Contraseña:</label>
-                    <input type="password">
+                    <input v-model="contrasena" type="password">
                 </div>
-                <button type="submit">Entrar</button>
+                <button @click="entrar" type="submit">Entrar</button>
             </form>
         </div>
     </div>
 </template>
 <script>
 import LogoAndMenu from "../components/LogoAndMenu.vue";
-
-import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { computed, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 export default {
     name: 'Login',
@@ -29,11 +29,34 @@ export default {
     },
 
     setup() {
+        const router = useRouter()
+        const alias = ref('')
+        const contrasena = ref('')
+
         const store = useStore();
         const modoNocturno = computed(() => store.state.modoNocturno);
+        const usuarios = computed(() => store.state.usuarios);
+        let estado = []
+        onMounted(async () => {
+            await store.dispatch('fetchUsuarios')
+            // console.log(usuarios.value)
+        })
+        const entrar = () => {
+            estado = usuarios.value.filter(val => { return (val.value.alias === alias.value && val.value.contrasena === contrasena.value) });
+            // console.log("input", alias.value)
+            // console.log("estado", estado)
+            if(estado != ''){
+               store.dispatch('setConexion')
+               router.push('/');
+            }
 
+
+        }
         return {
-            modoNocturno
+            modoNocturno,
+            entrar,
+            alias,
+            contrasena
 
         }
     }
@@ -59,6 +82,7 @@ h1 {
     background-color: #0C1D25;
     height: 100vh;
 }
+
 .container2 {
     background-color: #fff;
     height: 100vh;
@@ -74,6 +98,7 @@ h1 {
     background-color: #0C1D25;
     margin-top: 10%;
 }
+
 .container2 .user-registration {
     font-family: Arial, sans-serif;
     width: 80%;
@@ -84,6 +109,7 @@ h1 {
     background-color: #fff;
     margin-top: 10%;
 }
+
 h2 {
     color: #FEFDFC;
 }
@@ -92,7 +118,7 @@ h2 {
     margin: 15px;
 }
 
- label {
+label {
     display: block;
     font-size: 15px;
     margin: 5px 0;
@@ -110,7 +136,7 @@ input[type="file"] {
     border: 1px solid #999;
     border-radius: 5px;
     background-color: transparent;
-    color: #FEFDFC;
+    color: #3192c7;
 }
 
 button {

@@ -5,7 +5,7 @@
       <font-awesome-icon icon="bars" />
     </button>
 
-    <ul v-if="session" :class="{ show: isOpen }">
+    <ul v-if="usuarioConexion" :class="{ show: isOpen }">
       <div class="flex">
         <button @click="toggleDropdown">X</button>
       </div>
@@ -29,22 +29,24 @@
       </li>
       <li>
         <router-link :class="modoNocturno ? 'router' : 'router'" to="/Amigos">
+
           <font-awesome-icon id="icon" icon="person" />
           <p>Amigos</p>
         </router-link>
       </li>
       <li>
-        <router-link :class="modoNocturno ? 'router' : 'router'" to="/Amigos">
+        <div :class="modoNocturno ? 'router' : 'router'" @click="cerrarSesion">
+
           <font-awesome-icon id="icon" icon="right-from-bracket" />
           <p>Cerrar sesión</p>
-        </router-link>
+        </div>
       </li>
       <div class="modo">
 
         <Switch :modo="modoNocturno" @click="modo" />
       </div>
     </ul>
-    <ul v-if="!session" :class="{ show: isOpen }">
+    <ul v-if="!usuarioConexion" :class="{ show: isOpen }">
       <div class="flex">
         <button @click="toggleDropdown">X</button>
       </div>
@@ -78,6 +80,8 @@
 import { ref } from 'vue';
 import { onMounted, computed } from 'vue'
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router'
+
 import Switch from './Switch.vue';
 export default {
   name: 'sidebarMenu',
@@ -86,21 +90,35 @@ export default {
   },
   setup() {
     const store = useStore();
+    const router = useRouter();
+
     const modoNocturno = computed(() => store.state.modoNocturno);
-    const isOpen = ref(true);
-    const session = ref(true);
+    const usuarioConexion = computed(() => store.state.conexion);
+
+    const isOpen = ref(true)
+
     const toggleDropdown = () => {
-      isOpen.value = !isOpen.value;
-    };
+      isOpen.value = !isOpen.value
+    }
     const modo = async () => {
       store.dispatch('modificoModoNocturno', modoNocturno);
-    };
+    }
+    const cerrarSesion = async () => {
+      store.dispatch('setConexion')
+      router.push('/')
+    }
+
+    onMounted(() => {
+      console.log(usuarioConexion.value)
+    })
+
     return {
       isOpen,
       toggleDropdown,
-      session,
+      usuarioConexion,
       modoNocturno,
-      modo
+      modo,
+      cerrarSesion
     };
   },
   components: { Switch }
@@ -232,5 +250,6 @@ ul.show {
   right: -60%;
   transition: 0.5s ease-out;
 
-}</style>
+}
+</style>
   
