@@ -24,7 +24,8 @@ import {
     faUserPlus,
     faGear,
     faBars,
-    faCamera
+    faCamera,
+    faArrowRightRotate
 } from '@fortawesome/free-solid-svg-icons'
 import store from './vuex/store'
 /* add icons to the library */
@@ -42,7 +43,8 @@ library.add(
     faUserPlus,
     faGear,
     faBars,
-    faCamera
+    faCamera,
+    faArrowRightRotate
 
 )
 

@@ -28,13 +28,13 @@
         </router-link>
       </li>
       <li>
-        <router-link :class="modoNocturno ? 'router' : 'router'" to="/Chat">
+        <router-link :class="modoNocturno ? 'router' : 'router'" to="/Amigos">
           <font-awesome-icon id="icon" icon="person" />
           <p>Amigos</p>
         </router-link>
       </li>
       <li>
-        <router-link :class="modoNocturno ? 'router' : 'router'" to="/Chat">
+        <router-link :class="modoNocturno ? 'router' : 'router'" to="/Amigos">
           <font-awesome-icon id="icon" icon="right-from-bracket" />
           <p>Cerrar sesión</p>
         </router-link>

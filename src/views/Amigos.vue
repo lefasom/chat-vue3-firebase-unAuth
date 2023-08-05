@@ -11,21 +11,16 @@ export default {
   },
 
   setup() {
-    const tabla = ref(true)
     const store = useStore();
     const modoNocturno = computed(() => store.state.modoNocturno);
-    const array2 = [{ "id": 1, "grupo": "Lucas Vargas" }, { "id": 2, "grupo": "Mike Huaman" }, { "id": 3, "grupo": "Pedro perez" }, { "id": 4, "grupo": "Franco Echegaray" }, { "id": 5, "grupo": "Ignacio Herrera" }, { "id": 6, "grupo": "Lisandro Tamola" }, { "id": 7, "grupo": "Renzo Perez" }, { "id": 8, "grupo": "Dylan Sombra" }, { "id": 9, "grupo": "Diego Sanfurgo" }, { "id": 10, "grupo": "Jose Lagos" }, { "id": 11, "grupo": "Nicolas Estalles" }, { "id": 12, "grupo": "Eros Silva" }];
-    const array = [{ "id": 1, "grupo": "Grupo de motos" }, { "id": 2, "grupo": "Apoyo escolar" }, { "id": 3, "grupo": "Grupo familiar" }, { "id": 4, "grupo": "Parque " }, { "id": 5, "grupo": "Grupo familiar" }, { "id": 6, "grupo": "Facultad" }, { "id": 7, "grupo": "Grupo de motos" }, { "id": 8, "grupo": "Apoyo escolar" }, { "id": 9, "grupo": "Grupo familiar" }, { "id": 10, "grupo": "Parque " }, { "id": 11, "grupo": "Grupo familiar" }, { "id": 12, "grupo": "Facultad" }, { "id": 13, "grupo": "Grupo de motos" }, { "id": 14, "grupo": "Apoyo escolar" }, { "id": 15, "grupo": "Grupo familiar" }, { "id": 16, "grupo": "Parque " }, { "id": 17, "grupo": "Grupo familiar" }, { "id": 18, "grupo": "Facultad" }, { "id": 19, "grupo": "Grupo de motos" }, { "id": 20, "grupo": "Apoyo escolar" }, { "id": 21, "grupo": "Grupo familiar" }, { "id": 22, "grupo": "Parque " }, { "id": 23, "grupo": "Grupo familiar" }, { "id": 24, "grupo": "Facultad" }];
-    const changeTable = () => {
-      tabla.value = !tabla.value
-    }
+
+    const array = [{ "id": 1, "grupo": "Lucas Vargas" }, { "id": 2, "grupo": "Mike Huaman" }, { "id": 3, "grupo": "Pedro perez" }, { "id": 4, "grupo": "Franco Echegaray" }, { "id": 5, "grupo": "Ignacio Herrera" }, { "id": 6, "grupo": "Lisandro Tamola" }, { "id": 7, "grupo": "Renzo Perez" }, { "id": 8, "grupo": "Dylan Sombra" }, { "id": 9, "grupo": "Diego Sanfurgo" }, { "id": 10, "grupo": "Jose Lagos" }, { "id": 11, "grupo": "Nicolas Estalles" }, { "id": 12, "grupo": "Eros Silva" }];
+
+
     return {
       LogoAndMenu,
       modoNocturno,
-      array,
-      array2,
-      changeTable,
-      tabla
+      array
     }
   }
 }
@@ -35,36 +30,18 @@ export default {
 <template>
   <div :class="modoNocturno ? 'container-nube' : 'container2-nube'">
     <LogoAndMenu />
+
     <input type="text" placeholder="Buscar palabra clave o id">
-    <button  v-if="!tabla" class="button2" @click="changeTable">
-      <font-awesome-icon icon="arrow-right-rotate" />
-    Grupos
-    </button>
-    <button  v-if="tabla" class="button2" @click="changeTable">
-      <font-awesome-icon icon="arrow-right-rotate" />
-      Amigos
-    </button>
     <section>
-      <div v-if="tabla" v-for="arra in array" :key="arra.id">
+      <div v-for="arra in array" :key="arra.id">
         <article>
+            <img src="../assets/messi-perfil.jpg" alt="">
           <div class="GrupName">{{ arra.grupo }}</div>
-          <div class="GrupName" style="color:#3192c7">
-            Manager
-          </div>
-          <div :style="modoNocturno ? 'color:#dd940d' : 'color:#dd940d'">
-            <font-awesome-icon icon="person" /> 3
-          </div>
-          <div>
-            <font-awesome-icon style="color: #db5c7e;" icon="lock" />
-          </div>
-        </article>
-      </div>
-      <div v-if="!tabla" v-for="arra in array2" :key="arra.id">
-        <article>
-          <img src="../assets/messi-perfil.jpg" alt="">
-          <div class="GrupName">{{ arra.grupo }}</div>
-          <button class="button">
-            Seguir
+          <button>
+            <font-awesome-icon id="icon" icon="comments" />
+          </button>
+          <button>
+            <font-awesome-icon id="icon" icon="trash" style="color: rgb(195, 33, 8);"/>
           </button>
         </article>
       </div>
@@ -72,30 +49,30 @@ export default {
   </div>
 </template>
 <style scoped>
-.button2{
-  background-color: transparent;
-  border: 1px solid #3192c7;
-  color: #3192c7;
-  padding: 5px;
-  width: 100px;
-  cursor: pointer;
-  margin-left: 5%;
-  
-}
 img{
     height: 20px;
     width: 20px;
     margin: 2px;
     border-radius: 100%;
 }
-.container-nube .button {
-  background-color: transparent;
-  border: 0;
+.container-nube .btn-cancelar {
+  background-color: #999;
+  color: #0C1D25;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.container-nube button {
+    background-color: transparent;
+  border:0;
   outline: 0;
   color: #3192c7;
+  margin: 0 5px;
+  padding: 2px;
+  border-radius: 10px;
   cursor: pointer;
-  position: absolute;
-  left:  220px;
 }
 
 .container-nube .router {
@@ -128,7 +105,8 @@ img{
 }
 
 .container-nube input {
-  margin: 20px auto;
+  margin-top: 10px;
+  margin: auto;
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #999;
@@ -192,13 +170,15 @@ section::-webkit-scrollbar-thumb:hover {
   cursor: pointer;
 }
 
-.container2-nube .button {
+.container2-nube button {
   background-color: transparent;
-  border: 0;
+  border:0;
   outline: 0;
   color: #3192c7;
-  position:absolute;
-  left: 220px;
+  margin: 0 5px;
+  padding: 2px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .container2-nube .router {
@@ -231,7 +211,8 @@ section::-webkit-scrollbar-thumb:hover {
 }
 
 .container2-nube input {
-  margin: 20px auto;
+  margin-top: 10px;
+  margin: auto;
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #999;
@@ -259,7 +240,6 @@ section::-webkit-scrollbar-thumb:hover {
   display: flex;
   margin-top: 3px;
   height: 20px;
-  cursor: pointer;
   align-items: center;
 }
 
