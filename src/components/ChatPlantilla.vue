@@ -68,10 +68,12 @@ export default {
                 </div>
             </div>
             <div class="fecha">
+
                 <p>Hoy</p>
             </div>
             <div class="msj-you">
                 <div class="nodo">
+                    <h3>Lionel Messi</h3>
 
                     <p>
                         Hola
@@ -86,6 +88,8 @@ export default {
             </div>
             <div class="msj-you">
                 <div class="nodo">
+                    <h3>Lionel Messi</h3>
+
 
                     <p>
                         Hola Leonardo , Me cominucaba para saber cuanto sale un sito web.
