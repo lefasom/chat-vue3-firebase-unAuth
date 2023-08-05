@@ -9,6 +9,16 @@
                         <div v-if="image" class="img2">
                             <img :src="image" alt="Uploaded Image" />
                         </div>
+                        <div v-if="!image && sexo==='Mujer'" class="img2">
+                            <img src="../assets/perfil.png" alt="Uploaded Image" />
+                        </div>
+                        <div v-if="!image && sexo==='Hombre'" class="img2">
+                            <img src="../assets/hombre.png" alt="Uploaded Image" />
+                        </div>
+                        sexo : <select v-model="sexo" name="" id="">
+                            <option value="Hombre">Hombre</option>
+                            <option value="Mujer">Mujer</option>
+                        </select>
                     </label>
                     <input type="file" id="customImageInput" @change="handleFileChange" style="display: none;">
                 </div>
@@ -50,6 +60,8 @@ export default {
         const store = useStore();
         const modoNocturno = computed(() => store.state.modoNocturno);
         const image = ref('');
+        const sexo = ref('Mujer');
+
 
         const handleFileChange = (event) => {
             const file = event.target.files[0];
@@ -66,7 +78,8 @@ export default {
         return {
             modoNocturno,
             image,
-            handleFileChange
+            handleFileChange,
+            sexo
         }
     }
 }
@@ -96,7 +109,14 @@ h1 {
     background-color: #fff;
     height: 100vh;
 }
-
+.container option{
+    background: #0C1D25;
+    color: #3192c7;
+}
+.container select{
+    background: #0C1D25;
+    color: #3192c7;
+}
 .container .user-registration {
     font-family: Arial, sans-serif;
     width: 80%;

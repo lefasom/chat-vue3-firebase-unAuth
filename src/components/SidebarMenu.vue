@@ -88,7 +88,7 @@ export default {
     const store = useStore();
     const modoNocturno = computed(() => store.state.modoNocturno);
     const isOpen = ref(true);
-    const session = ref(false);
+    const session = ref(true);
     const toggleDropdown = () => {
       isOpen.value = !isOpen.value;
     };

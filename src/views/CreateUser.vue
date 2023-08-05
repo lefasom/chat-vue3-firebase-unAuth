@@ -9,6 +9,9 @@
                         <div v-if="image" class="img2">
                             <img :src="image" alt="Uploaded Image" />
                         </div>
+                        <div v-if="!image" class="img2">
+                            <img src="../assets/hombre.png" alt="Uploaded Image" />
+                        </div>
                     </label>
                     <input type="file" id="customImageInput" @change="handleFileChange" style="display: none;">
                 </div>
