@@ -4,155 +4,149 @@ import { useStore } from 'vuex';
 import { ref } from 'vue';
 import LogoAndMenu from "../components/LogoAndMenu.vue";
 export default {
-    name: 'crear',
+  name: 'crear',
 
-    components: {
-        LogoAndMenu,
-    },
+  components: {
+    LogoAndMenu,
+  },
 
-    setup() {
-      const store = useStore();
+  setup() {
+    const store = useStore();
     const modoNocturno = computed(() => store.state.modoNocturno);
-   
-const mostrandoModal = ref(false);
-const entradaContraseña = ref('');
 
-const mostrarModal = () => {
-  mostrandoModal.value = true;
-};
-const cerrarModal = () => {
-  mostrandoModal.value = false;
-};
-const verificarContraseña = () => {
-  // Aquí puedes implementar la lógica para verificar la contraseña ingresada
-  // Por ejemplo, puedes compararla con una contraseña predefinida.
-  // Si la contraseña es correcta, puedes hacer alguna acción y luego cerrar el modal:
-  // mostrandoModal.value = false;
-  // Si es incorrecta, puedes mostrar un mensaje de error o hacer lo que consideres necesario.
-  mostrandoModal.value = false; // Este código es solo para cerrar el modal en este ejemplo.
-};
-        return {
-          LogoAndMenu,
-          mostrarModal,
-          cerrarModal,
-          verificarContraseña,
-          modoNocturno
-        }
+    const array = [
+      {
+        "id": 1,
+        "grupo": "Grupo de motos"
+      },
+      {
+        "id": 2,
+        "grupo": "Apoyo escolar"
+      },
+      {
+        "id": 3,
+        "grupo": "Grupo familiar"
+      },
+      {
+        "id": 4,
+        "grupo": "Parque "
+      },
+      {
+        "id": 5,
+        "grupo": "Grupo familiar"
+      },
+      {
+        "id": 6,
+        "grupo": "Facultad"
+      },
+      {
+        "id": 7,
+        "grupo": "Grupo de motos"
+      },
+      {
+        "id": 8,
+        "grupo": "Apoyo escolar"
+      },
+      {
+        "id": 9,
+        "grupo": "Grupo familiar"
+      },
+      {
+        "id": 10,
+        "grupo": "Parque "
+      },
+      {
+        "id": 11,
+        "grupo": "Grupo familiar"
+      },
+      {
+        "id": 12,
+        "grupo": "Facultad"
+      },
+      {
+        "id": 13,
+        "grupo": "Grupo de motos"
+      },
+      {
+        "id": 14,
+        "grupo": "Apoyo escolar"
+      },
+      {
+        "id": 15,
+        "grupo": "Grupo familiar"
+      },
+      {
+        "id": 16,
+        "grupo": "Parque "
+      },
+      {
+        "id": 17,
+        "grupo": "Grupo familiar"
+      },
+      {
+        "id": 18,
+        "grupo": "Facultad"
+      },
+      {
+        "id": 19,
+        "grupo": "Grupo de motos"
+      },
+      {
+        "id": 20,
+        "grupo": "Apoyo escolar"
+      },
+      {
+        "id": 21,
+        "grupo": "Grupo familiar"
+      },
+      {
+        "id": 22,
+        "grupo": "Parque "
+      },
+      {
+        "id": 23,
+        "grupo": "Grupo familiar"
+      },
+      {
+        "id": 24,
+        "grupo": "Facultad"
+      },
+    ]
+
+    return {
+      LogoAndMenu,
+      modoNocturno,
+      array
     }
+  }
 }
 
 </script>
 
 <template>
-  <div  :class="modoNocturno ? 'container-nube' : 'container2-nube'">
-   <LogoAndMenu />
+  <div :class="modoNocturno ? 'container-nube' : 'container2-nube'">
+    <LogoAndMenu />
 
     <input type="text" placeholder="Buscar palabra clave o id">
     <section>
-      <button @click="mostrarModal">
+      <div v-for="arra in array" :key="arra.id">
         <article>
-          <div class="GrupName">Grupo Familiar</div>
-
-          <div class="GrupName" style="color: rgb(251, 147, 249);">
+          <div class="GrupName">{{ arra.grupo }}</div>
+          <div class="GrupName" style="color:#3192c7">
             Manager
           </div>
-          <div :style="modoNocturno? 'color:#dd940d': 'color:#ead927'">
-
+          <div :style="modoNocturno ? 'color:#dd940d' : 'color:#dd940d'">
             <font-awesome-icon icon="person" /> 3
           </div>
-
           <div>
             <font-awesome-icon style="color: #db5c7e;" icon="lock" />
-            <!-- <font-awesome-icon icon="lock-open" /> -->
           </div>
         </article>
-      </button>
-
-      <router-link class="router" to="/Chat">
-        <article>
-          <div class="GrupName">Escuela de futbol</div>
-
-          <div>
-            <!-- <font-awesome-icon style="color: #db5c7e;" icon="lock" /> -->
-            <!-- <font-awesome-icon style="color: #66e78d;" icon="lock-open" /> -->
-          </div>
-          <div :style="modoNocturno? 'color:#3192c7': 'color:rgb(173, 220, 246)'">
-            Visitor
-          </div>
-          <div :style="modoNocturno? 'color:#dd940d': 'color:#f9fd8e'">
-            <font-awesome-icon icon="person" /> 8
-          </div>
-        </article>
-      </router-link>
-    </section>
-      <!-- Modal -->
-      <div v-if="mostrandoModal" class="modal">
-      <div class="modal-contenido">
-        <h2>Contraseña</h2>
-        <input type="password" v-model="entradaContraseña" placeholder="Ingrese la contraseña">
-        <div class="modal-botones">
-          <button class="btn-aceptar" @click="verificarContraseña">Aceptar</button>
-          <button class="btn-cancelar" @click="cerrarModal">Cancelar</button>
-        </div>
       </div>
-    </div>
-    <!-- Fin del Modal -->
+    </section>
   </div>
 </template>
-
 <style scoped>
-
-/* ... Estilos existentes ... */
-
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-contenido {
-  background-color: #3192c7;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: 90%;
-}
-
-.modal h2 {
-  margin-bottom: 10px;
-  color: #FEFDFC;
-}
-
-.modal input {
-  margin-bottom: 10px;
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #999;
-  outline-color: #f8fdff;
-}
-
-.modal-botones {
-  display: flex;
-  justify-content: center;
-}
-
-.btn-aceptar {
-  background-color: #0C1D25;
-  color: #fff;
-  margin-right: 10px;
-  padding: 8px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
 
 .container-nube .btn-cancelar {
   background-color: #999;
@@ -162,13 +156,15 @@ const verificarContraseña = () => {
   border-radius: 5px;
   cursor: pointer;
 }
-.container-nube button{
+
+.container-nube button {
   background-color: transparent;
-  border:0;
+  border: 0;
   outline: 0;
   width: 100vw;
-  color: #FEFDFC;  
+  color: #FEFDFC;
 }
+
 .container-nube .router {
   text-decoration: none;
   color: #FEFDFC;
@@ -228,7 +224,7 @@ const verificarContraseña = () => {
 
 }
 
- .container-nube article {
+.container-nube article {
   background-color: #074b6f;
   display: flex;
   margin-top: 3px;
@@ -255,6 +251,7 @@ section::-webkit-scrollbar-thumb:hover {
   background-color: #074b6f;
   /* Color de la barra en sí al pasar el cursor sobre ella */
 }
+
 .container2-nube .btn-cancelar {
   background-color: #999;
   color: #0C1D25;
@@ -263,13 +260,15 @@ section::-webkit-scrollbar-thumb:hover {
   border-radius: 5px;
   cursor: pointer;
 }
-.container2-nube button{
+
+.container2-nube button {
   background-color: transparent;
-  border:0;
+  border: 0;
   outline: 0;
   width: 100vw;
-  color: #FEFDFC;  
+  color: #FEFDFC;
 }
+
 .container2-nube .router {
   text-decoration: none;
   color: #FEFDFC;
@@ -317,20 +316,23 @@ section::-webkit-scrollbar-thumb:hover {
   height: 70vh;
   margin: auto;
   margin-top: 20px;
-  color: #FEFDFC;
+  color: #0C1D25;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   overflow: hidden;
   overflow-y: scroll;
+  background-color: #ccc;
 }
+
 .container2-nube article {
-  background-color: #3192c7;
+  background-color: #f8fdff;
   display: flex;
   margin-top: 3px;
   height: 20px;
   cursor: pointer;
   align-items: center;
 }
- section div {
+
+section div {
   margin: 0 5px;
 
 

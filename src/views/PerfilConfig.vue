@@ -6,9 +6,11 @@
                 <div class="form-group">
                     <label for="customImageInput" id="customImageLabel">
                         <font-awesome-icon class="img1" icon="camera" />
-                        <img src="../assets/messi-perfil.jpg" class="img2" alt="Imagen Personalizada">
+                        <div v-if="image" class="img2">
+                            <img :src="image" alt="Uploaded Image" />
+                        </div>
                     </label>
-                    <input type="file" id="customImageInput" style="display: none;">
+                    <input type="file" id="customImageInput" @change="handleFileChange" style="display: none;">
                 </div>
 
 
@@ -26,18 +28,19 @@
                     <input type="text" id="alias" placeholder="Alias">
                 </div>
 
-                <button type="submit">Actualizar Datos</button>
+                <button type="submit">Editar datos</button>
             </form>
         </div>
     </div>
 </template>
   
 <script>
-import LogoAndMenu from '../components/LogoAndMenu.vue';
+import LogoAndMenu from '../components/LogoAndMenu.vue'
 import { computed } from 'vue'
-import { useStore } from 'vuex';
+import { useStore } from 'vuex'
+import { ref } from 'vue'
 export default {
-    name: 'PerfilConfig',
+    name: 'CreateUser',
 
     components: {
         LogoAndMenu,
@@ -46,9 +49,24 @@ export default {
     setup() {
         const store = useStore();
         const modoNocturno = computed(() => store.state.modoNocturno);
+        const image = ref('');
 
+        const handleFileChange = (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    image.value = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            }
+        };
         return {
-            modoNocturno
+            modoNocturno,
+            image,
+            handleFileChange
         }
     }
 }
@@ -183,7 +201,6 @@ h2 {
     width: 100px;
     height: 100px;
     border-radius: 100%;
-    border: 2px solid #ccc;
     display: inline-block;
 }
 
@@ -193,11 +210,10 @@ h2 {
     width: 100px;
     height: 100px;
     border-radius: 100%;
-    border: 2px solid #ccc;
     display: inline-block;
 }
 
-.container #customImageLabel .img1 {
+.container #customImageLabel  .img1 {
     /* Asegúrate de que la imagen personalizada se ajuste correctamente al contenedor */
     cursor: pointer;
     object-fit: cover;
@@ -212,7 +228,7 @@ h2 {
 
 }
 
-.container2 #customImageLabel .img1 {
+.container2 #customImageLabel  .img1 {
     /* Asegúrate de que la imagen personalizada se ajuste correctamente al contenedor */
     cursor: pointer;
     object-fit: cover;
@@ -228,16 +244,18 @@ h2 {
 
 }
 
-#customImageLabel .img2 {
+#customImageLabel img{
     /* Asegúrate de que la imagen personalizada se ajuste correctamente al contenedor */
-    width: 100%;
-    height: 100%;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
     border-radius: 100%;
     position: relative;
     top: -32px;
     z-index: 9;
     cursor: pointer;
+    border: 2px solid #ccc;
 
-}</style>
+}
+</style>
   

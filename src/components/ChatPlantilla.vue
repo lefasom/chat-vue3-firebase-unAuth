@@ -73,7 +73,6 @@ export default {
             <div class="msj-you">
                 <div class="nodo">
 
-                    <h3>Lionel Messi</h3>
                     <p>
                         Hola
                     </p>
@@ -88,7 +87,6 @@ export default {
             <div class="msj-you">
                 <div class="nodo">
 
-                    <h3>Lionel Messi</h3>
                     <p>
                         Hola Leonardo , Me cominucaba para saber cuanto sale un sito web.
                     </p>
