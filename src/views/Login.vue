@@ -4,7 +4,7 @@
         <div class="user-registration">
             <form @submit.prevent="submitForm">
                 <div class="form-group">
-                    <label for="alias">Alias:</label>
+                    <label for="alias">Alias o Correo:</label>
                     <input v-model="alias" type="text">
                 </div>
                 <div class="form-group">
@@ -39,12 +39,14 @@ export default {
         let estado = []
         onMounted(async () => {
             await store.dispatch('fetchUsuarios')
-            // console.log(usuarios.value)
         })
         const entrar = () => {
-            estado = usuarios.value.filter(val => { return (val.value.alias === alias.value && val.value.contrasena === contrasena.value) });
-            // console.log("input", alias.value)
-            // console.log("estado", estado)
+            estado = usuarios.value.filter(val => { 
+                return (
+                   (val.value.alias === alias.value && val.value.contrasena === contrasena.value)||
+                   (val.value.correo === alias.value && val.value.contrasena === contrasena.value)
+                    
+                    )})
             if(estado != ''){
                store.dispatch('setConexion')
                router.push('/');
@@ -127,16 +129,21 @@ label {
     text-align: start;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="file"] {
+.container2 input{
     width: 100%;
     padding: 10px;
     border: 1px solid #999;
     border-radius: 5px;
     background-color: transparent;
     color: #3192c7;
+}
+.container input{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #999;
 }
 
 button {

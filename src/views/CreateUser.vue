@@ -9,9 +9,6 @@
                         <div v-if="image" class="img2">
                             <img :src="image" alt="Uploaded Image" />
                         </div>
-                        <div v-if="!image" class="img2">
-                            <img src="../assets/hombre.png" alt="Uploaded Image" />
-                        </div>
                     </label>
                     <input type="file" id="customImageInput" @change="handleFileChange" style="display: none;">
                 </div>
@@ -20,18 +17,19 @@
 
                 <div class="form-group">
                     <label for="">Correo Electronico</label>
-                    <input type="email" id="email" placeholder="Correo Electronico">
+                    <input v-model="form.correo" type="email" id="email" placeholder="Correo Electronico">
                 </div>
                 <div class="form-group">
                     <label for="">Contraseña</label>
-                    <input type="password" id="password" placeholder="Contraseña">
+                    <input v-model="form.contrasena" type="password" id="password" placeholder="Contraseña">
                 </div>
                 <div class="form-group">
                     <label for="">Alias</label>
-                    <input type="text" id="alias" placeholder="Alias">
+                    <input v-model="form.alias" type="text" id="alias" placeholder="Alias">
                 </div>
-
-                <button type="submit">Registrarse</button>
+                <div v-if="form.foto != ''">
+                    <button @click="registrarse" type="submit">Registrarse</button>
+                </div>
             </form>
         </div>
     </div>
@@ -41,7 +39,10 @@
 import LogoAndMenu from '../components/LogoAndMenu.vue'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+
 import { ref } from 'vue'
+import { db, uploadFile } from '../firebase/firebase'
 export default {
     name: 'CreateUser',
 
@@ -50,9 +51,18 @@ export default {
     },
 
     setup() {
+        const router = useRouter()
         const store = useStore();
         const modoNocturno = computed(() => store.state.modoNocturno);
+        const sexo = ref('Mujer')
         const image = ref('');
+
+        const form = ref({
+            correo: null,
+            contrasena: null,
+            alias: null,
+            foto: ''
+        });
 
         const handleFileChange = (event) => {
             const file = event.target.files[0];
@@ -64,12 +74,26 @@ export default {
                 };
 
                 reader.readAsDataURL(file);
+                cargarPhoto(file)
             }
         };
+
+        const cargarPhoto = async (file) => {
+            const result = await uploadFile(file)
+            console.log(result)
+            form.value.foto = result
+        }
+        const registrarse = () => {
+            store.dispatch('crearUsuario',form.value)
+            router.push('/');
+        }
         return {
+            handleFileChange,
+            registrarse,
             modoNocturno,
             image,
-            handleFileChange
+            form,
+            sexo,
         }
     }
 }
@@ -99,6 +123,17 @@ h1 {
     background-color: #fff;
     height: 100vh;
 }
+
+.container option {
+    background: #0C1D25;
+    color: #3192c7;
+}
+
+.container select {
+    background: #0C1D25;
+    color: #3192c7;
+}
+
 
 .container .user-registration {
     font-family: Arial, sans-serif;
@@ -216,7 +251,7 @@ h2 {
     display: inline-block;
 }
 
-.container #customImageLabel  .img1 {
+.container #customImageLabel .img1 {
     /* Asegúrate de que la imagen personalizada se ajuste correctamente al contenedor */
     cursor: pointer;
     object-fit: cover;
@@ -231,7 +266,7 @@ h2 {
 
 }
 
-.container2 #customImageLabel  .img1 {
+.container2 #customImageLabel .img1 {
     /* Asegúrate de que la imagen personalizada se ajuste correctamente al contenedor */
     cursor: pointer;
     object-fit: cover;
@@ -247,7 +282,7 @@ h2 {
 
 }
 
-#customImageLabel img{
+#customImageLabel img {
     /* Asegúrate de que la imagen personalizada se ajuste correctamente al contenedor */
     width: 100px;
     height: 100px;

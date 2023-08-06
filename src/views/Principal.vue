@@ -28,7 +28,6 @@ export default {
 
     onMounted(async () => {
       await store.dispatch('fetchUsuarios')
-      console.log(conexion.value)
     })
 
     return {

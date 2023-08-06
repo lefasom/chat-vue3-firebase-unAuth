@@ -109,7 +109,7 @@ export default {
     }
 
     onMounted(() => {
-      console.log(usuarioConexion.value)
+      // console.log(usuarioConexion.value)
     })
 
     return {
@@ -202,6 +202,7 @@ ul button {
   width: 60%;
   height: 100%;
   transition: 0.5s ease-out;
+  border-left: 1px solid #ccc;
 
 }
 

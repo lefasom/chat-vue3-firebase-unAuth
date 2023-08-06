@@ -51,6 +51,12 @@ const store = createStore({
     setConexion({ commit }) {
       commit('setConexion')
     },
+    async crearUsuario({ commit }, form) {
+      console.log(form)
+      const collectionRef = collection(db, 'usuario');
+      const docRef = await addDoc(collectionRef, form);
+      // commit('addItem', { ...item, id: docRef.id })  lo dejo para recordarme actualizar mayormente cuando la action se genera en una misma vista 
+    },
   }
 })
 
