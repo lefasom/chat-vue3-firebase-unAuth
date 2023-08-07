@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import PerfilConfig from '../views/PerfilConfig.vue'
+import ImgConfig from '../views/ImgConfig.vue'
 import CreateChat from '../views/CreateChat.vue'
 import Descubre from '../views/Descubre.vue'
 import Amigos from '../views/Amigos.vue'
@@ -43,6 +44,10 @@ const routes = [
     path: '/PerfilConfig',
     name: 'PerfilConfig',
     component: PerfilConfig
+  }, {
+    path: '/ImgConfig',
+    name: 'ImgConfig',
+    component: ImgConfig
   },
   {
     path: '/Amigos',

@@ -9,6 +9,9 @@
       <div class="flex">
         <button @click="toggleDropdown">X</button>
       </div>
+      <router-link :class="modoNocturno ? 'router' : 'router'" to="/ImgConfig">
+         <img :src="usuario.foto" alt="">
+        </router-link>
       <li>
         <router-link :class="modoNocturno ? 'router' : 'router'" to="/Descubre">
           <font-awesome-icon id="icon" icon="globe" />
@@ -94,6 +97,7 @@ export default {
 
     const modoNocturno = computed(() => store.state.modoNocturno);
     const usuarioConexion = computed(() => store.state.conexion);
+    const usuario = computed(() => store.state.usuario);
 
     const isOpen = ref(true)
 
@@ -118,7 +122,8 @@ export default {
       usuarioConexion,
       modoNocturno,
       modo,
-      cerrarSesion
+      cerrarSesion,
+      usuario
     };
   },
   components: { Switch }
@@ -128,7 +133,14 @@ export default {
 <style scoped>
 /* Estilos de ejemplo para el menú desplegable */
 /* Estilos para el interruptor cuando está activado */
-
+img{
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  object-fit: cover;
+  margin: 20px;
+  border: 1px solid #ccc;
+}
 .barside,
 .barside2 {
   position: absolute;

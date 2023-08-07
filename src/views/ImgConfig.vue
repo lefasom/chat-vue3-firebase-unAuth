@@ -3,7 +3,7 @@
         <LogoAndMenu />
         <div class="user-registration">
             <form @submit.prevent="submitForm">
-                <!-- <div class="form-group">
+                <div class="form-group">
                     <label for="customImageInput" id="customImageLabel">
                         <font-awesome-icon class="img1" icon="camera" />
                         <div v-if="form.foto" class="img2">
@@ -12,12 +12,12 @@
 
                     </label>
                     <input type="file" id="customImageInput" @change="handleFileChange" style="display: none;">
-                </div> -->
-
-                <div v-if="img != form.foto">
-                    <button @click="editarDatos" type="submit">Editar foto</button>
                 </div>
 
+              <div v-if="img != form.foto">
+                    <button @click="editarDatos" type="submit">Modificar foto</button>
+                </div> 
+<!-- 
                 <div class="form-group">
                     <label for="">Correo Electronico</label>
                     <input v-model="form.correo" type="email" id="email" placeholder="Correo Electronico">
@@ -29,8 +29,8 @@
                 <div class="form-group">
                     <label for="">Alias</label>
                     <input v-model="form.alias" type="text" id="alias" placeholder="Alias">
-                </div>
-                <button @click="editarDatos" type="submit">Editar datos</button>
+                </div> --> 
+                <!-- <button @click="editarDatos" type="submit">Editar datos</button> -->
             </form>
         </div>
     </div>
