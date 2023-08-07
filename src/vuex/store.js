@@ -7,22 +7,18 @@ const store = createStore({
   state() {
     return {
       modoNocturno: false,
-      usuario: {
-        nombre: null,
-        alias: null,
-        correo: null,
-        contrasena: null,
-        id: null,
-        foto: null,
-        sexo: null,
-        conexion: false,
-        amigos: null,
-      },
+      usuario: [],
+      id: null,
       usuarios: [],
       conexion: false
     };
   },
   mutations: {
+    setUsuario(state, { value, id }) {
+      state.usuario = value
+      state.id = id
+
+    },
     setUsuarios(state, us) {
       state.usuarios = us
     },
@@ -43,7 +39,6 @@ const store = createStore({
       }))
       commit('setUsuarios', us)
       // commit('setIndividual', [])
-
     },
     modificoModoNocturno({ commit }) {
       commit('setModoNocturno')
@@ -51,11 +46,23 @@ const store = createStore({
     setConexion({ commit }) {
       commit('setConexion')
     },
-    async crearUsuario({ commit }, form) {
+    async crearUsuario(form) {
       console.log(form)
       const collectionRef = collection(db, 'usuario');
       const docRef = await addDoc(collectionRef, form);
-      // commit('addItem', { ...item, id: docRef.id })  lo dejo para recordarme actualizar mayormente cuando la action se genera en una misma vista 
+    },
+    async setUsuario({ commit }, form) {
+      console.log(form)
+      commit('setUsuario', form)
+    },
+    async updateUsuario({ commit }, { value, id }) {
+      console.log(id)
+      // Actualizar un elemento en Firebase Firestore
+      const itemRef = doc(db, 'usuario', id);
+      await updateDoc(itemRef, value);
+      console.log('El elemento ha sido editado correctamente');
+      // commit('updateItem', { index, newItem: item })  lo dejo para recordarme actualizar en este caso al recaagar no necesita el commit 
+
     },
   }
 })

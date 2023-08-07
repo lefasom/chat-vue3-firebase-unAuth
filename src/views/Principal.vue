@@ -24,10 +24,14 @@ export default {
   setup() {
     const store = useStore();
     const modoNocturno = computed(() => store.state.modoNocturno);
-    const conexion = computed(() => store.state.conexion);
+    const usuario = computed(() => store.state.usuario);
+    const id = computed(() => store.state.id);
+
 
     onMounted(async () => {
       await store.dispatch('fetchUsuarios')
+      console.log('usuario->',usuario.value)
+      console.log('id->',id.value)
     })
 
     return {

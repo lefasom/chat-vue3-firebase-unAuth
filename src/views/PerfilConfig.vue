@@ -6,39 +6,33 @@
                 <div class="form-group">
                     <label for="customImageInput" id="customImageLabel">
                         <font-awesome-icon class="img1" icon="camera" />
-                        <div v-if="image" class="img2">
-                            <img :src="image" alt="Uploaded Image" />
+                        <div v-if="form.foto" class="img2">
+                            <img :src="img" alt="Uploaded Image" />
                         </div>
-                        <div v-if="!image && sexo==='Mujer'" class="img2">
-                            <img src="../assets/perfil.png" alt="Uploaded Image" />
-                        </div>
-                        <div v-if="!image && sexo==='Hombre'" class="img2">
-                            <img src="../assets/hombre.png" alt="Uploaded Image" />
-                        </div>
-                        sexo : <select v-model="sexo" name="" id="">
-                            <option value="Hombre">Hombre</option>
-                            <option value="Mujer">Mujer</option>
-                        </select>
+
                     </label>
                     <input type="file" id="customImageInput" @change="handleFileChange" style="display: none;">
                 </div>
 
-
+                <div v-if="img!=form.foto">
+                    <button @click="editarDatos" type="submit">Editar foto</button>
+                </div>
 
                 <div class="form-group">
                     <label for="">Correo Electronico</label>
-                    <input type="email" id="email" placeholder="Correo Electronico">
+                    <input v-model="form.correo" type="email" id="email" placeholder="Correo Electronico">
                 </div>
                 <div class="form-group">
                     <label for="">Contraseña</label>
-                    <input type="password" id="password" placeholder="Contraseña">
+                    <input v-model="form.contrasena" type="password" id="password" placeholder="Contraseña">
                 </div>
                 <div class="form-group">
                     <label for="">Alias</label>
-                    <input type="text" id="alias" placeholder="Alias">
+                    <input v-model="form.alias" type="text" id="alias" placeholder="Alias">
                 </div>
-
-                <button type="submit">Editar datos</button>
+                <div v-if="img!=form.foto">
+                    <button @click="editarDatos" type="submit">Editar datos</button>
+                </div>
             </form>
         </div>
     </div>
@@ -49,6 +43,8 @@ import LogoAndMenu from '../components/LogoAndMenu.vue'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { ref } from 'vue'
+import { uploadFile } from '../firebase/firebase'
+
 export default {
     name: 'CreateUser',
 
@@ -59,9 +55,32 @@ export default {
     setup() {
         const store = useStore();
         const modoNocturno = computed(() => store.state.modoNocturno);
-        const image = ref('');
-        const sexo = ref('Mujer');
+        const usuario = computed(() => store.state.usuario);
+        let id = computed(() => store.state.id);
+        let form =
+        {
+            alias: usuario.value.alias,
+            contrasena: usuario.value.contrasena,
+            correo: usuario.value.correo,
+            foto: usuario.value.foto
+        }
 
+        const img = ref(form.foto);
+
+
+
+        const editarDatos = async () => {
+            const value = form
+            id = id.value
+            await store.dispatch('updateUsuario', { value, id })
+            await store.dispatch('setUsuario', { value, id })
+        }
+
+        const cargarPhoto = async (file) => {
+            const result = await uploadFile(file)
+            // console.log(result)
+            form.foto = result
+        }
 
         const handleFileChange = (event) => {
             const file = event.target.files[0];
@@ -69,17 +88,19 @@ export default {
                 const reader = new FileReader();
 
                 reader.onload = (e) => {
-                    image.value = e.target.result;
+                    img.value = e.target.result;
                 };
 
                 reader.readAsDataURL(file);
+                cargarPhoto(file)
             }
-        };
+        }
         return {
             modoNocturno,
-            image,
             handleFileChange,
-            sexo
+            editarDatos,
+            form,
+            img
         }
     }
 }
@@ -109,14 +130,17 @@ h1 {
     background-color: #fff;
     height: 100vh;
 }
-.container option{
+
+.container option {
     background: #0C1D25;
     color: #3192c7;
 }
-.container select{
+
+.container select {
     background: #0C1D25;
     color: #3192c7;
 }
+
 .container .user-registration {
     font-family: Arial, sans-serif;
     width: 80%;
@@ -233,7 +257,7 @@ h2 {
     display: inline-block;
 }
 
-.container #customImageLabel  .img1 {
+.container #customImageLabel .img1 {
     /* Asegúrate de que la imagen personalizada se ajuste correctamente al contenedor */
     cursor: pointer;
     object-fit: cover;
@@ -248,7 +272,7 @@ h2 {
 
 }
 
-.container2 #customImageLabel  .img1 {
+.container2 #customImageLabel .img1 {
     /* Asegúrate de que la imagen personalizada se ajuste correctamente al contenedor */
     cursor: pointer;
     object-fit: cover;
@@ -264,7 +288,7 @@ h2 {
 
 }
 
-#customImageLabel img{
+#customImageLabel img {
     /* Asegúrate de que la imagen personalizada se ajuste correctamente al contenedor */
     width: 100px;
     height: 100px;

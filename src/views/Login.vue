@@ -47,7 +47,11 @@ export default {
                    (val.value.correo === alias.value && val.value.contrasena === contrasena.value)
                     
                     )})
+                    const value = estado[0].value
+                    const id = estado[0].id
+                    console.log('console',estado[0])
             if(estado != ''){
+               store.dispatch('setUsuario',{value, id})
                store.dispatch('setConexion')
                router.push('/');
             }
