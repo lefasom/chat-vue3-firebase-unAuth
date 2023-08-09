@@ -9,28 +9,12 @@
                         <div v-if="form.foto" class="img2">
                             <img :src="img" alt="Uploaded Image" />
                         </div>
-
                     </label>
                     <input type="file" id="customImageInput" @change="handleFileChange" style="display: none;">
                 </div>
-
-              <div v-if="img != form.foto">
+                <div v-if="modificando">
                     <button @click="editarDatos" type="submit">Modificar foto</button>
-                </div> 
-<!-- 
-                <div class="form-group">
-                    <label for="">Correo Electronico</label>
-                    <input v-model="form.correo" type="email" id="email" placeholder="Correo Electronico">
                 </div>
-                <div class="form-group">
-                    <label for="">Contraseña</label>
-                    <input v-model="form.contrasena" type="password" id="password" placeholder="Contraseña">
-                </div>
-                <div class="form-group">
-                    <label for="">Alias</label>
-                    <input v-model="form.alias" type="text" id="alias" placeholder="Alias">
-                </div> --> 
-                <!-- <button @click="editarDatos" type="submit">Editar datos</button> -->
             </form>
         </div>
     </div>
@@ -66,7 +50,9 @@ export default {
             foto: usuario.value.foto
         }
 
-        const img = ref(form.foto);
+        const img = ref(form.foto)
+        const modificando = ref(false)
+
 
 
         const editarDatos = async () => {
@@ -82,6 +68,10 @@ export default {
             const result = await uploadFile(file)
             // console.log(result)
             form.foto = result
+            
+            img.value = result
+            modificando.value = true
+
         }
 
         const handleFileChange = (event) => {
@@ -89,9 +79,9 @@ export default {
             if (file) {
                 const reader = new FileReader();
 
-                reader.onload = (e) => {
-                    img.value = e.target.result;
-                };
+                // reader.onload = (e) => {
+                //     img.value = e.target.result;
+                // };
 
                 reader.readAsDataURL(file);
                 cargarPhoto(file)
@@ -102,7 +92,8 @@ export default {
             handleFileChange,
             editarDatos,
             form,
-            img
+            img,
+            modificando
         }
     }
 }
