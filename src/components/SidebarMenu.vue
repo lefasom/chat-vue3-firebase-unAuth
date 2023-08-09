@@ -1,17 +1,21 @@
 <template>
   <div :class="modoNocturno ? 'barside' : 'barside2'">
-
     <button class="menu" @click="toggleDropdown">
       <font-awesome-icon icon="bars" />
     </button>
-
     <ul v-if="usuarioConexion" :class="{ show: isOpen }">
       <div class="flex">
         <button @click="toggleDropdown">X</button>
       </div>
-      <router-link :class="modoNocturno ? 'router' : 'router'" to="/ImgConfig">
-         <img :src="usuario.foto" alt="">
+      <div class="perfil">
+        <router-link :class="modoNocturno ? 'router' : 'router'" to="/ImgConfig">
+          <img :src="usuario.foto" alt="">
         </router-link>
+        <div>
+          <p>{{ usuario.alias }}</p>
+          <p>{{ usuario.correo }}</p>
+        </div>
+      </div>
       <li>
         <router-link :class="modoNocturno ? 'router' : 'router'" to="/Descubre">
           <font-awesome-icon id="icon" icon="globe" />
@@ -75,10 +79,8 @@
         <Switch :modo="modoNocturno" @click="modo" />
       </div>
     </ul>
-
   </div>
 </template>
-  
 <script>
 import { ref } from 'vue';
 import { onMounted, computed } from 'vue'
@@ -133,14 +135,37 @@ export default {
 <style scoped>
 /* Estilos de ejemplo para el menú desplegable */
 /* Estilos para el interruptor cuando está activado */
-img{
-  width: 40px;
-  height: 40px;
+ .perfil{
+  display: flex;
+}
+.barside .perfil div {
+  display: flex;
+  flex-direction: column;
+  color: #ccc;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin: 20px 5px;
+  font-size: 13px;
+}
+.barside2 .perfil div {
+  display: flex;
+  flex-direction: column;
+  color: #3192c7;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin: 20px 5px;
+  font-size: 13px;
+}
+.perfil p{
+  margin-bottom: 5px;
+}
+img {
+  width: 45px;
+  height: 45px;
   border-radius: 100%;
   object-fit: cover;
-  margin: 20px;
-  border: 1px solid #ccc;
+  margin: 20px 5px;
+  border: 3 solid #ccc;
 }
+
 .barside,
 .barside2 {
   position: absolute;
@@ -214,7 +239,7 @@ ul button {
   width: 60%;
   height: 100%;
   transition: 0.5s ease-out;
-  border-left: 1px solid #555e62;
+  border-left: 3 solid #555e62;
 
 }
 
@@ -229,7 +254,7 @@ ul button {
   width: 60%;
   height: 100%;
   transition: 0.5s ease-out;
-  border-left: 1px solid #bed8e6;
+  border-left: 3 solid #bed8e6;
 
 }
 
@@ -237,7 +262,10 @@ ul button {
   color: #3192c7;
 
 }
+.barside #icon {
+  color: #ccc;
 
+}
 ul li {
   padding: 8px;
   cursor: pointer;
