@@ -13,19 +13,23 @@ export default {
   setup() {
     const tabla = ref(true)
     const store = useStore();
-    const modoNocturno = computed(() => store.state.modoNocturno);
+    const modoNocturno = computed(() => store.state.modoNocturno)
+    const usuarios = computed(() => store.state.usuarios)
+
     const array2 = [{ "id": 1, "grupo": "Lucas Vargas" }, { "id": 2, "grupo": "Mike Huaman" }, { "id": 3, "grupo": "Pedro perez" }, { "id": 4, "grupo": "Franco Echegaray" }, { "id": 5, "grupo": "Ignacio Herrera" }, { "id": 6, "grupo": "Lisandro Tamola" }, { "id": 7, "grupo": "Renzo Perez" }, { "id": 8, "grupo": "Dylan Sombra" }, { "id": 9, "grupo": "Diego Sanfurgo" }, { "id": 10, "grupo": "Jose Lagos" }, { "id": 11, "grupo": "Nicolas Estalles" }, { "id": 12, "grupo": "Eros Silva" }];
     const array = [{ "id": 1, "grupo": "Grupo de motos" }, { "id": 2, "grupo": "Apoyo escolar" }, { "id": 3, "grupo": "Grupo familiar" }, { "id": 4, "grupo": "Parque " }, { "id": 5, "grupo": "Grupo familiar" }, { "id": 6, "grupo": "Facultad" }, { "id": 7, "grupo": "Grupo de motos" }, { "id": 8, "grupo": "Apoyo escolar" }, { "id": 9, "grupo": "Grupo familiar" }, { "id": 10, "grupo": "Parque " }, { "id": 11, "grupo": "Grupo familiar" }, { "id": 12, "grupo": "Facultad" }, { "id": 13, "grupo": "Grupo de motos" }, { "id": 14, "grupo": "Apoyo escolar" }, { "id": 15, "grupo": "Grupo familiar" }, { "id": 16, "grupo": "Parque " }, { "id": 17, "grupo": "Grupo familiar" }, { "id": 18, "grupo": "Facultad" }, { "id": 19, "grupo": "Grupo de motos" }, { "id": 20, "grupo": "Apoyo escolar" }, { "id": 21, "grupo": "Grupo familiar" }, { "id": 22, "grupo": "Parque " }, { "id": 23, "grupo": "Grupo familiar" }, { "id": 24, "grupo": "Facultad" }];
     const changeTable = () => {
       tabla.value = !tabla.value
     }
+    console.log(usuarios.value[0])
     return {
       LogoAndMenu,
       modoNocturno,
       array,
       array2,
       changeTable,
-      tabla
+      tabla, 
+      usuarios
     }
   }
 }
@@ -59,10 +63,10 @@ export default {
           </div>
         </article>
       </div>
-      <div v-if="!tabla" v-for="arra in array2" :key="arra.id">
+      <div v-if="!tabla" v-for="user in usuarios" :key="user.id">
         <article>
-          <img src="../assets/messi-perfil.jpg" alt="">
-          <div class="GrupName">{{ arra.grupo }}</div>
+          <img :src="user.value.foto" alt="">
+          <div class="GrupName">{{ user.value.alias }}</div>
           <button class="button">
             Seguir
           </button>
@@ -83,10 +87,12 @@ export default {
   
 }
 img{
-    height: 20px;
-    width: 20px;
+    height: 30px;
+    width: 30px;
     margin: 2px;
     border-radius: 100%;
+    object-fit: cover;
+
 }
 .container-nube .button {
   background-color: transparent;
@@ -148,6 +154,7 @@ img{
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   overflow: hidden;
   overflow-y: scroll;
+  background-color: #074b6f;
 }
 
 .container-nube section div {
@@ -157,11 +164,12 @@ img{
 }
 
 .container-nube article {
-  background-color: #074b6f;
+  background-color: #0C1D25;
   display: flex;
   margin-top: 3px;
-  height: 20px;
   align-items: center;
+  cursor: pointer;
+  padding: 5px;
 }
 
 .container-nube section::-webkit-scrollbar {
@@ -258,9 +266,9 @@ section::-webkit-scrollbar-thumb:hover {
   background-color: #f8fdff;
   display: flex;
   margin-top: 3px;
-  height: 20px;
-  cursor: pointer;
   align-items: center;
+  cursor: pointer;
+  padding: 5px;
 }
 
 section div {
