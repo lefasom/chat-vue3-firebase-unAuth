@@ -2,7 +2,7 @@
     <div :class="modoNocturno ? 'container' : 'container2'">
         <LogoAndMenu />
         <div class="user-registration">
-            <form @submit.prevent="submitForm">
+            <form @submit.prevent="registrarse">
                 <div class="form-group">
                     <label for="customImageInput" id="customImageLabel">
                         <font-awesome-icon class="img1" icon="camera" />
@@ -27,9 +27,7 @@
                     <label for="">Alias</label>
                     <input v-model="form.alias" type="text" id="alias" placeholder="Alias">
                 </div>
-                <div v-if="form.foto != ''">
-                    <button @click="registrarse" type="submit">Registrarse</button>
-                </div>
+                <button :disabled="!form.foto" type="submit">Registrarse</button>
             </form>
         </div>
     </div>
@@ -54,7 +52,6 @@ export default {
         const router = useRouter()
         const store = useStore();
         const modoNocturno = computed(() => store.state.modoNocturno);
-        const sexo = ref('Mujer')
         const image = ref('');
 
         const form = ref({
@@ -84,8 +81,13 @@ export default {
             form.value.foto = result
         }
         const registrarse = () => {
-            store.dispatch('crearUsuario',form.value)
-            router.push('/');
+            if (form.value.foto) {
+                const value = form.value;
+                store.dispatch('crearUsuario', value);
+                router.push('/');
+            } else {
+                // Mostrar algún mensaje de error o realizar alguna acción adecuada si no hay foto cargada.
+            }
         }
         return {
             handleFileChange,
@@ -93,7 +95,6 @@ export default {
             modoNocturno,
             image,
             form,
-            sexo,
         }
     }
 }

@@ -46,10 +46,10 @@ const store = createStore({
     setConexion({ commit }) {
       commit('setConexion')
     },
-    async crearUsuario(form) {
-      console.log(form)
+    async crearUsuario({ commit }, value) {
+      console.log('cosole de store',value)
       const collectionRef = collection(db, 'usuario');
-      const docRef = await addDoc(collectionRef, form);
+      const docRef = await addDoc(collectionRef, value);
     },
     async setUsuario({ commit }, form) {
       console.log(form)
