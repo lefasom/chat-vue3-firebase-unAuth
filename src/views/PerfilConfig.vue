@@ -63,7 +63,9 @@ export default {
             alias: usuario.value.alias,
             contrasena: usuario.value.contrasena,
             correo: usuario.value.correo,
-            foto: usuario.value.foto
+            foto: usuario.value.foto,
+            conexion: usuario.value.conexion
+
         }
 
         const img = ref(form.foto);

@@ -17,17 +17,26 @@
 
                 <div class="form-group">
                     <label for="">Correo Electronico</label>
-                    <input v-model="form.correo" type="email" id="email" placeholder="Correo Electronico">
+                    <input v-model.trim="form.correo" type="text" id="email" placeholder="Correo Electronico"
+                        :class="passwordError?'is-invalid':''">
+
                 </div>
                 <div class="form-group">
                     <label for="">Contraseña</label>
-                    <input v-model="form.contrasena" type="password" id="password" placeholder="Contraseña">
+                    <input :class="passwordError?'is-invalid':''" v-model.trim="form.contrasena" type="password" id="password" placeholder="Contraseña">
                 </div>
+            
                 <div class="form-group">
                     <label for="">Alias</label>
-                    <input v-model="form.alias" type="text" id="alias" placeholder="Alias">
+                    <input v-model.trim="form.alias" type="text" id="alias" placeholder="Alias">
                 </div>
-                <button :disabled="!form.foto" type="submit">Registrarse</button>
+                <div v-if="form.foto != ''">
+                    <button type="submit">Registrarse</button>
+                </div>
+                <div v-if="emailError" class="error-message">Ingrese un correo válido</div>
+                <div v-if="passwordError" class="error-message">
+                    La contraseña debe tener al menos {{ minPasswordLength }} caracteres
+                </div>
             </form>
         </div>
     </div>
@@ -53,13 +62,24 @@ export default {
         const store = useStore();
         const modoNocturno = computed(() => store.state.modoNocturno);
         const image = ref('');
+        const passwordError = ref(false);
+        const minPasswordLength = 8;
+        const emailError = ref(false);
 
         const form = ref({
             correo: null,
             contrasena: null,
             alias: null,
-            foto: ''
+            foto: '',
+            conexion: false
         });
+        const validateEmail = () => {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            emailError.value = !emailRegex.test(email.value);
+        };
+        const validatePassword = () => {
+            passwordError.value = password.value.length < minPasswordLength;
+        };
 
         const handleFileChange = (event) => {
             const file = event.target.files[0];
@@ -81,12 +101,15 @@ export default {
             form.value.foto = result
         }
         const registrarse = () => {
-            if (form.value.foto) {
+            validateEmail();
+            validatePassword();
+            if (form.value.foto && !emailError.value && !passwordError.value) {
                 const value = form.value;
                 store.dispatch('crearUsuario', value);
                 router.push('/');
+                console.log("Formulario válido, enviando datos...");
             } else {
-                // Mostrar algún mensaje de error o realizar alguna acción adecuada si no hay foto cargada.
+                console.log("Datos invalidos");
             }
         }
         return {
@@ -95,12 +118,27 @@ export default {
             modoNocturno,
             image,
             form,
+            minPasswordLength,
+            emailError,
+            passwordError,
         }
     }
 }
 </script>
   
 <style scoped>
+.is-invalid {
+    border:1px solid red;
+}
+
+.error-message {
+    margin-left: 14px;
+    padding-top: 10px;
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
 .router {
     text-decoration: none;
     color: #FEFDFC;

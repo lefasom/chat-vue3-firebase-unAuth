@@ -41,19 +41,22 @@ export default {
             await store.dispatch('fetchUsuarios')
         })
         const entrar = () => {
-            estado = usuarios.value.filter(val => { 
+            estado = usuarios.value.filter(val => {
                 return (
-                   (val.value.alias === alias.value && val.value.contrasena === contrasena.value)||
-                   (val.value.correo === alias.value && val.value.contrasena === contrasena.value)
-                    
-                    )})
-                    const value = estado[0].value
-                    const id = estado[0].id
-                    console.log('console',estado[0])
-            if(estado != ''){
-               store.dispatch('setUsuario',{value, id})
-               store.dispatch('setConexion')
-               router.push('/');
+                    (val.value.alias === alias.value && val.value.contrasena === contrasena.value) ||
+                    (val.value.correo === alias.value && val.value.contrasena === contrasena.value)
+
+                )
+            })
+            const state = true
+            const value = estado[0].value
+            const id = estado[0].id
+            console.log('console', estado[0])
+            if (estado != '') {
+                store.dispatch('conexion', { value, id, state })
+                store.dispatch('setUsuario', { value, id })
+                store.dispatch('setConexion')
+                router.push('/');
             }
 
 
@@ -133,7 +136,7 @@ label {
     text-align: start;
 }
 
-.container2 input{
+.container2 input {
     width: 100%;
     padding: 10px;
     border: 1px solid #999;
@@ -141,7 +144,8 @@ label {
     background-color: transparent;
     color: #3192c7;
 }
-.container input{
+
+.container input {
     width: 100%;
     padding: 10px;
     border: 1px solid #999;

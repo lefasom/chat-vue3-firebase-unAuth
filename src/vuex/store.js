@@ -47,7 +47,7 @@ const store = createStore({
       commit('setConexion')
     },
     async crearUsuario({ commit }, value) {
-      console.log('cosole de store',value)
+      console.log('cosole de store', value)
       const collectionRef = collection(db, 'usuario');
       const docRef = await addDoc(collectionRef, value);
     },
@@ -61,6 +61,26 @@ const store = createStore({
       const itemRef = doc(db, 'usuario', id);
       await updateDoc(itemRef, value);
       console.log('El elemento ha sido editado correctamente');
+      // commit('updateItem', { index, newItem: item })  lo dejo para recordarme actualizar en este caso al recaagar no necesita el commit 
+
+    },
+    async conexion({ commit }, { value, id, state }) {
+      // Actualizar un elemento en Firebase Firestore
+      
+      const itemRef = doc(db, 'usuario', id);
+      let form =
+        {
+            alias: value.alias,
+            contrasena: value.contrasena,
+            correo: value.correo,
+            foto: value.foto,
+            conexion: state
+
+        }
+      console.log('conexion',id)
+
+      await updateDoc(itemRef, form);
+      console.log('cambia estado de conexion');
       // commit('updateItem', { index, newItem: item })  lo dejo para recordarme actualizar en este caso al recaagar no necesita el commit 
 
     },

@@ -100,7 +100,16 @@ export default {
     const modoNocturno = computed(() => store.state.modoNocturno);
     const usuarioConexion = computed(() => store.state.conexion);
     const usuario = computed(() => store.state.usuario);
+        let id = computed(() => store.state.id);
+        let form =
+        {
+            alias: usuario.value.alias,
+            contrasena: usuario.value.contrasena,
+            correo: usuario.value.correo,
+            foto: usuario.value.foto,
+            conexion: usuario.value.conexion
 
+        }
     const isOpen = ref(true)
 
     const toggleDropdown = () => {
@@ -110,6 +119,11 @@ export default {
       store.dispatch('modificoModoNocturno', modoNocturno);
     }
     const cerrarSesion = async () => {
+      const value = form
+      const state = false
+
+            id = id.value
+     await store.dispatch('conexion', { value, id, state })
       store.dispatch('setConexion')
       router.push('/')
     }

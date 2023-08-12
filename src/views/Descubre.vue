@@ -1,5 +1,5 @@
 <script>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex';
 import { ref } from 'vue';
 import LogoAndMenu from "../components/LogoAndMenu.vue";
@@ -22,6 +22,10 @@ export default {
       tabla.value = !tabla.value
     }
     console.log(usuarios.value[0])
+    onMounted(async () => {
+            await store.dispatch('fetchUsuarios')
+        })
+
     return {
       LogoAndMenu,
       modoNocturno,
@@ -67,6 +71,8 @@ export default {
         <article>
           <img :src="user.value.foto" alt="">
           <div class="GrupName">{{ user.value.alias }}</div>
+          <div class="GrupName">{{ user.value.conexion }}</div>
+
           <button class="button">
             Seguir
           </button>
