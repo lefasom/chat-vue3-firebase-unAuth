@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex';
 import SidebarMenu from './SidebarMenu.vue';
-import { collection, getDocs, orderBy, query, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, onSnapshot, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 export default {
     components: {
@@ -24,19 +24,21 @@ export default {
         const diferenciaHoraria = -300; // -3 horas * 60 minutos/hora = -180 minutos
         // Ajustar la hora según la diferencia horaria
         fechaActual.setMinutes(fechaActual.getMinutes() + diferenciaHoraria);
-        const año = fechaActual.getFullYear()
-        const mes = fechaActual.getMonth() + 1
-        const día = fechaActual.getDate()
+        // const año = fechaActual.getFullYear()
+        // const mes = fechaActual.getMonth() + 1
+        // const día = fechaActual.getDate()
         const hora = fechaActual.getHours()
         const minutos = fechaActual.getMinutes()
-        const segundos = fechaActual.getSeconds()
+        // const segundos = fechaActual.getSeconds()
 
         const msj = ref({
+            foto_emisor: usuario.value.foto,
             nombre_emisor: usuario.value.alias,
             id_emisor: idemisor.value,
             id_receptor: props.id,
             mensaje: '',
-            fecha: fechaActual
+            fecha: serverTimestamp(),
+            hora: `${hora}:${minutos}`
 
         })
         const send = async () => {
@@ -107,7 +109,7 @@ export default {
                         <p>
                             {{ mensaje.value.mensaje }}
                         </p>
-                        <!-- <span>{{ mensaje.value.fecha }}</span> -->
+                        <span>{{ mensaje.value.hora }}</span>
 
                     </div>
 
@@ -119,11 +121,11 @@ export default {
                         <p>
                             {{ mensaje.value.mensaje }}
                         </p>
-                        <!-- <span>{{ mensaje.value.fecha }}</span> -->
+                        <span>{{ mensaje.value.hora }}</span>
 
                     </div>
                     <div class="float">
-                        <img src="../assets/messi-perfil.jpg" alt="">
+                        <img :src="mensaje.value.foto_emisor" alt="">
                         <font-awesome-icon id="icon" icon="trash" />
                     </div>
                 </div>
@@ -145,6 +147,10 @@ export default {
 
 <style scoped>
 /* nocturno */
+.nocturno {
+    margin: 65px 0;
+}
+
 .float {
     display: flex;
     flex-direction: column;
