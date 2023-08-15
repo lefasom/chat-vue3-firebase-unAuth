@@ -89,7 +89,7 @@ import { useRouter } from 'vue-router'
 
 import Switch from './Switch.vue';
 export default {
-  name: 'sidebarMenu',
+  name: 'SidebarMenu',
   components: {
     Switch
   },
@@ -119,6 +119,9 @@ export default {
       store.dispatch('modificoModoNocturno', modoNocturno);
     }
     const cerrarSesion = async () => {
+
+
+
       const value = form
       const state = false
 

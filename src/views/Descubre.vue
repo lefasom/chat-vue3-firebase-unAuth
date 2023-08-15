@@ -70,7 +70,10 @@ export default {
       <div v-if="!tabla" v-for="user in usuarios" :key="user.id">
         <article>
           <img :src="user.value.foto" alt="">
-          <div class="GrupName">{{ user.value.alias }}</div>
+          <router-link :to="`/Chat/${user.id}`">
+
+            <div class="GrupName">{{ user.value.alias }}</div>
+        </router-link>
           <div class="GrupName">{{ user.value.conexion }}</div>
 
           <button class="button">

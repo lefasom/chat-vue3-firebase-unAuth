@@ -25,13 +25,24 @@ export default {
     const store = useStore();
     const modoNocturno = computed(() => store.state.modoNocturno);
     const usuario = computed(() => store.state.usuario);
+    const usuarios = computed(() => store.state.usuarios);
+    const mensajes = computed(() => store.state.mensajes);
+
+
     const id = computed(() => store.state.id);
 
 
     onMounted(async () => {
       await store.dispatch('fetchUsuarios')
-      console.log('usuario->',usuario.value)
-      console.log('id->',id.value)
+      await store.dispatch('fetchMensajes')
+
+      console.log(
+        'mensajes', mensajes
+      )
+
+      console.log(
+        'usuarios', usuarios
+      )
     })
 
     return {

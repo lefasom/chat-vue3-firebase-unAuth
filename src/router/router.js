@@ -21,7 +21,7 @@ const routes = [
     component: Descubre
   },
   {
-    path: '/Chat',
+    path: '/Chat/:id',
     name: 'Chat',
     component: Chat
   },
@@ -57,7 +57,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(process.env.BASE_URL),
   routes
 })
 

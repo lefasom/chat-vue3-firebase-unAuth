@@ -1,116 +1,146 @@
 <script>
+import { ref } from 'vue';
 
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex';
 import SidebarMenu from './SidebarMenu.vue';
+import { collection, getDocs, orderBy, query, onSnapshot } from 'firebase/firestore';
+import { db } from '../firebase/firebase';
 export default {
-  components: {
-    SidebarMenu,
-  },
- 
+    components: {
+        SidebarMenu,
+    },
+    props: ['id'],
     name: 'ChatPlantillas',
-    setup() {
-        const store = useStore();
-        const modoNocturno = computed(() => store.state.modoNocturno);
+    setup(props) {
+        const store = useStore()
+        const modoNocturno = computed(() => store.state.modoNocturno)
+        const idemisor = computed(() => store.state.id);
+        const usuario = computed(() => store.state.usuario);
 
+        const mensajes = computed(() => store.state.mensajes);
+
+        const fechaActual = new Date();
+        const diferenciaHoraria = -300; // -3 horas * 60 minutos/hora = -180 minutos
+        // Ajustar la hora según la diferencia horaria
+        fechaActual.setMinutes(fechaActual.getMinutes() + diferenciaHoraria);
+        const año = fechaActual.getFullYear()
+        const mes = fechaActual.getMonth() + 1
+        const día = fechaActual.getDate()
+        const hora = fechaActual.getHours()
+        const minutos = fechaActual.getMinutes()
+        const segundos = fechaActual.getSeconds()
+
+        const msj = ref({
+            nombre_emisor: usuario.value.alias,
+            id_emisor: idemisor.value,
+            id_receptor: props.id,
+            mensaje: '',
+            fecha: fechaActual
+
+        })
+        const send = async () => {
+            console.log('msj', msj.value.mensaje)
+            const value = msj.value
+            await store.dispatch('crearMensaje', value);
+            msj.value.mensaje = ''
+
+
+
+        }
+
+        onMounted(async () => {
+            const mensajesRef = collection(db, 'mensajes');
+            const orderedQuery = query(mensajesRef, orderBy('fecha'));
+
+            onSnapshot(orderedQuery, (snapshot) => {
+                const msj = snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    value: doc.data()
+                }));
+                store.commit('setMensajes', msj);
+            });
+
+            await store.dispatch('fetchUsuarios');
+        });
         return {
+            send,
+            msj,
             modoNocturno,
-            SidebarMenu
+            mensajes,
+            idemisor
         }
     }
 }
 </script>
 
 <template>
-    <div  :class="modoNocturno?'nocturno':'dia'">
-    
-    <section class="panel-sup">
-        <div class="panel-sup-phote">
-            <router-link to="/">
-                <font-awesome-icon id="icon" icon="arrow-left" />
-            </router-link>
-            <img src="../assets/messi-perfil.jpg" alt="">
-        </div>
-        <div class="panel-sup-name">
-            <h3>Lionel Messi </h3>
-        </div>
-    </section>
-    <section class="panel-body">
-        <div class="messages-container">
-            <div class="fecha">
-                <p>12 de Julio de 2023</p>
-            </div>
-            <div class="msj-me">
+    <div :class="modoNocturno ? 'nocturno' : 'dia'">
+
+        <section class="panel-sup">
+            <div class="panel-sup-phote">
+                <router-link to="/">
+                    <font-awesome-icon id="icon" icon="arrow-left" />
+                </router-link>
                 <img src="../assets/messi-perfil.jpg" alt="">
-
-                <div class="nodo">
-                    <h3>Lionel Messi</h3>
-                    <p>
-                        Hola Leonardo , Me cominucaba para saber cuanto sale un sito web.
-                    </p>
-                    <span>20:30</span>
-
-                </div>
-
             </div>
-            <div class="fecha">
-                <p>Ayer</p>
+            <div class="panel-sup-name">
+                <h3>Lionel Messi </h3>
             </div>
-            <div class="msj-me">
-                <img src="../assets/messi-perfil.jpg" alt="">
-                <div class="nodo">
-                    <h3>Lionel Messi</h3>
-                    <p>
-                        Hola
-                    </p>
-                    <span>20:30</span>
+        </section>
+        <section v-for="mensaje in mensajes" :key="mensaje.id" class="panel-body">
+            <div class="messages-container">
+                <!-- <div class="fecha">
+                    <p>12 de Julio de 2023</p>
+                </div> -->
 
-                </div>
-            </div>
-            <div class="fecha">
 
-                <p>Hoy</p>
-            </div>
-            <div class="msj-you">
-                <div class="nodo">
-                    <h3>Lionel Messi</h3>
 
-                    <p>
-                        Hola
-                    </p>
-                    <span>20:30</span>
-                </div>
-                <div class="float">
+
+
+
+                <div v-if="mensaje.value.id_emisor != idemisor" class="msj-me">
                     <img src="../assets/messi-perfil.jpg" alt="">
-                    <font-awesome-icon id="icon" icon="trash" />
+
+                    <div class="nodo">
+                        <h3>{{ mensaje.value.nombre_emisor }}</h3>
+                        <p>
+                            {{ mensaje.value.mensaje }}
+                        </p>
+                        <!-- <span>{{ mensaje.value.fecha }}</span> -->
+
+                    </div>
+
                 </div>
 
+                <div v-else class="msj-you">
+                    <div class="nodo">
+                        <h3>{{ mensaje.value.nombre_emisor }}</h3>
+                        <p>
+                            {{ mensaje.value.mensaje }}
+                        </p>
+                        <!-- <span>{{ mensaje.value.fecha }}</span> -->
+
+                    </div>
+                    <div class="float">
+                        <img src="../assets/messi-perfil.jpg" alt="">
+                        <font-awesome-icon id="icon" icon="trash" />
+                    </div>
+                </div>
             </div>
-            <div class="msj-you">
-                <div class="nodo">
-                    <h3>Lionel Messi</h3>
 
 
-                    <p>
-                        Hola Leonardo , Me cominucaba para saber cuanto sale un sito web.
-                    </p>
-                    <span>20:30</span>
 
-                </div>
-                <div class="float">
-                    <img src="../assets/messi-perfil.jpg" alt="">
-                    <font-awesome-icon id="icon" icon="trash" />
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="panel-inf">
-        <input type="text" placeholder="Mensaje">
-        <button>
-            <font-awesome-icon id="icon" icon="paper-plane" />
-        </button>
-    </section>
-</div>
+
+
+        </section>
+        <section class="panel-inf">
+            <input v-model="msj.mensaje" type="text" placeholder="Mensaje">
+            <button @click="send">
+                <font-awesome-icon id="icon" icon="paper-plane" />
+            </button>
+        </section>
+    </div>
 </template>
 
 <style scoped>
@@ -142,12 +172,11 @@ export default {
 
 .nocturno .panel-body {
     background-color: #0C1D25;
-    height: 100vh;
     width: 100%;
-    padding: 80px 7px;
+    padding: 7px;
     overflow-y: hidden;
-    overflow-y: scroll;
 }
+
 .messages-container {
     display: flex;
     flex-direction: column;
@@ -343,6 +372,7 @@ button {
     background-color: #074b6f;
     /* Color de la barra en sí al pasar el cursor sobre ella */
 }
+
 /* dia */
 .dia .fecha p {
     background-color: #ffffff;
@@ -358,9 +388,8 @@ button {
 
 .dia .panel-body {
     background-color: #EFEAE2;
-    height: 100vh;
     width: 100%;
-    padding: 80px 7px;
+    padding: 7px;
     overflow-y: hidden;
     overflow-y: scroll;
 }
@@ -499,6 +528,7 @@ button {
 .dia button:focus #icon {
     color: #01896B;
 }
+
 .dia .panel-sup #icon {
     font-size: 20px;
     font-weight: 300;

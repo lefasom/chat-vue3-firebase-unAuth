@@ -44,6 +44,7 @@
 </style>
 <script>
 export default {
+    name: 'Switch',
   props: ['modo']  // Definimos las props que recibirá el componente
 }
 </script>

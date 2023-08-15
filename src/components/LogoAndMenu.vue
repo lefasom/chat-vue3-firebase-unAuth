@@ -40,7 +40,7 @@ header {
 import SidebarMenu from "./SidebarMenu.vue";
 
 export default {
-  name: 'Logo',
+  name: 'LogoAndMenu',
 
   components: {
     SidebarMenu,
