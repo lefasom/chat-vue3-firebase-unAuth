@@ -63,7 +63,7 @@ export default {
         const modoNocturno = computed(() => store.state.modoNocturno);
         const image = ref('');
         const passwordError = ref(false);
-        const minPasswordLength = 8;
+        const minPasswordLength = 1;
         const emailError = ref(false);
 
         const form = ref({

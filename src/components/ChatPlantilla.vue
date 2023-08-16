@@ -15,9 +15,10 @@ export default {
     setup(props) {
         const store = useStore()
         const modoNocturno = computed(() => store.state.modoNocturno)
-        const idemisor = computed(() => store.state.id);
+        let idemisor = computed(() => store.state.id);
+        idemisor = localStorage.getItem('id') || idemisor
         const usuario = computed(() => store.state.usuario);
-
+        let fechas = []
         const mensajes = computed(() => store.state.mensajes);
 
         const fechaActual = new Date();
@@ -32,9 +33,9 @@ export default {
         // const segundos = fechaActual.getSeconds()
 
         const msj = ref({
-            foto_emisor: usuario.value.foto,
-            nombre_emisor: usuario.value.alias,
-            id_emisor: idemisor.value,
+            foto_emisor: localStorage.getItem('foto') || usuario.value.foto,
+            nombre_emisor: localStorage.getItem('alias') || usuario.value.alias,
+            id_emisor: localStorage.getItem('id') || idemisor.value,
             id_receptor: props.id,
             mensaje: '',
             fecha: serverTimestamp(),
@@ -42,18 +43,16 @@ export default {
             fecha_e: `${día + 1} / ${mes} / ${ano} `
 
         })
-        const send = async () => {
-            console.log('msj', msj.value.mensaje)
+        const send = () => {
+            // console.log('msj', msj.value.mensaje)
             const value = msj.value
-            await store.dispatch('crearMensaje', value);
+            store.dispatch('crearMensaje', value);
             msj.value.mensaje = ''
-            fechas = []
-
-
-
         }
-        let fechas = []
+
         const chequear = (value) => {
+            // console.log(fechas)
+            // console.log('f', fechas.includes(value))
             if (fechas.includes(value)) {
                 return ''
             } else {
@@ -62,13 +61,15 @@ export default {
             }
 
         }
-        const deleteMensaje = (id)=>{
+        const deleteMensaje = (id) => {
             store.dispatch('borrarMensaje', id);
         }
         onMounted(async () => {
+            console.log(mensajes)
+            console.log(props.id)
+
             const mensajesRef = collection(db, 'mensajes');
             const orderedQuery = query(mensajesRef, orderBy('fecha'));
-
             onSnapshot(orderedQuery, (snapshot) => {
                 const msj = snapshot.docs.map((doc) => ({
                     id: doc.id,
@@ -76,7 +77,7 @@ export default {
                 }));
                 store.commit('setMensajes', msj);
             });
-console.log(fechas)
+            // console.log(fechas)
             await store.dispatch('fetchUsuarios');
         });
         return {
@@ -86,7 +87,9 @@ console.log(fechas)
             mensajes,
             idemisor,
             chequear,
-            deleteMensaje
+            deleteMensaje,
+            props,
+            fechas
         }
     }
 }
@@ -97,20 +100,22 @@ console.log(fechas)
 
         <section class="panel-sup">
             <div class="panel-sup-phote">
-                <router-link to="/">
+                <router-link to="/Descubre">
                     <font-awesome-icon id="icon" icon="arrow-left" />
                 </router-link>
-                <img src="../assets/messi-perfil.jpg" alt="">
+                <!-- <img src="../assets/messi-perfil.jpg" alt=""> -->
             </div>
-            <div class="panel-sup-name">
+            <!-- <div class="panel-sup-name">
                 <h3>Lionel Messi </h3>
-            </div>
+            </div> -->
         </section>
         <section v-for="mensaje in mensajes" :key="mensaje.id" class="panel-body">
-            <div class="messages-container">
+            <div v-if="(mensaje.value.id_emisor === idemisor && mensaje.value.id_receptor === props.id) || (mensaje.value.id_emisor === props.id && mensaje.value.id_receptor === idemisor)"
+                class="messages-container">
                 <div v-if="chequear(mensaje.value.fecha_e) != ''" class="fecha">
                     <p>{{ mensaje.value.fecha_e }}</p>
                 </div>
+
 
 
 
@@ -164,15 +169,15 @@ console.log(fechas)
 <style scoped>
 /* nocturno */
 .nocturno {
-    margin: 65px 0;
+    padding: 77px 0;
     background-color: #0C1D25;
-    height: 100vh;
+
 }
 
 .dia {
-    margin: 65px 0;
+    padding: 77px 0;
+
     background-color: #EFEAE2;
-    height: 100vh;
 
 }
 
@@ -204,7 +209,7 @@ console.log(fechas)
 .nocturno .panel-body {
     background-color: #0C1D25;
     width: 100%;
-    padding: 7px;
+    padding: 5px 10px;
     overflow-y: hidden;
 }
 

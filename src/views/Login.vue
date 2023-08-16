@@ -52,8 +52,16 @@ export default {
                 const state = true
                 const value = estado[0].value
                 const id = estado[0].id
-                console.log('console', estado[0])
+                // console.log('console', estado[0])
                 if (estado != '') {
+                    localStorage.setItem('alias',value.alias)
+                    localStorage.setItem('contrasena',value.contrasena)
+                    localStorage.setItem('correo',value.correo)
+                    localStorage.setItem('foto',value.foto)
+                    localStorage.setItem('id',id)
+                    localStorage.setItem('state',state)
+
+
                     store.dispatch('conexion', { value, id, state })
                     store.dispatch('setUsuario', { value, id })
                     store.dispatch('setConexion')

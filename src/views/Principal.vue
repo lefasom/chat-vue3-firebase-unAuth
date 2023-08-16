@@ -36,13 +36,13 @@ export default {
       await store.dispatch('fetchUsuarios')
       await store.dispatch('fetchMensajes')
 
-      console.log(
-        'mensajes', mensajes
-      )
+      // console.log(
+      //   'mensajes', mensajes
+      // )
 
-      console.log(
-        'usuarios', usuarios
-      )
+      // console.log(
+      //   'usuarios', usuarios
+      // )
     })
 
     return {

@@ -11,7 +11,7 @@ const store = createStore({
       usuario: [],
       id: null,
       usuarios: [],
-      conexion: false
+      conexion: localStorage.getItem('state') || false
     };
   },
   mutations: {
@@ -72,7 +72,7 @@ const store = createStore({
       commit('setConexion')
     },
     async crearUsuario({ commit }, value) {
-      console.log('cosole de store', value)
+      // console.log('cosole de store', value)
       const collectionRef = collection(db, 'usuario');
       const docRef = await addDoc(collectionRef, value);
     },
@@ -80,10 +80,10 @@ const store = createStore({
       commit('setUsuario', { value, id })
     },
     async updateUsuario({ commit }, { value, id }) {
-      console.log(id)
+      // console.log(id)
       const itemRef = doc(db, 'usuario', id);
       await updateDoc(itemRef, value);
-      console.log('El elemento ha sido editado correctamente');
+      // console.log('El elemento ha sido editado correctamente');
     },
     async conexion({ commit }, { value, id, state }) {
       const itemRef = doc(db, 'usuario', id);
@@ -96,7 +96,7 @@ const store = createStore({
         conexion: state
       }
       await updateDoc(itemRef, form);
-      console.log('cambia estado de conexion');
+      // console.log('cambia estado de conexion');
     },
   }
 })

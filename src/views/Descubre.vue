@@ -21,10 +21,10 @@ export default {
     const changeTable = () => {
       tabla.value = !tabla.value
     }
-    console.log(usuarios.value[0])
+    // console.log(usuarios.value[0])
     onMounted(async () => {
-            await store.dispatch('fetchUsuarios')
-        })
+      await store.dispatch('fetchUsuarios')
+    })
 
     return {
       LogoAndMenu,
@@ -32,7 +32,7 @@ export default {
       array,
       array2,
       changeTable,
-      tabla, 
+      tabla,
       usuarios
     }
   }
@@ -44,16 +44,16 @@ export default {
   <div :class="modoNocturno ? 'container-nube' : 'container2-nube'">
     <LogoAndMenu />
     <input type="text" placeholder="Buscar palabra clave o id">
-    <button  v-if="!tabla" class="button2" @click="changeTable">
+    <button v-if="tabla" class="button2" @click="changeTable">
       <font-awesome-icon icon="arrow-right-rotate" />
-    Grupos
+      Grupos
     </button>
-    <button  v-if="tabla" class="button2" @click="changeTable">
+    <button v-if="!tabla" class="button2" @click="changeTable">
       <font-awesome-icon icon="arrow-right-rotate" />
       Amigos
     </button>
     <section>
-      <div v-if="tabla" v-for="arra in array" :key="arra.id">
+      <div v-if="!tabla" v-for="arra in array" :key="arra.id">
         <article>
           <div class="GrupName">{{ arra.grupo }}</div>
           <div class="GrupName" style="color:#3192c7">
@@ -67,25 +67,56 @@ export default {
           </div>
         </article>
       </div>
-      <div v-if="!tabla" v-for="user in usuarios" :key="user.id">
+      <div v-if="tabla" v-for="user in usuarios" :key="user.id">
         <article>
           <img :src="user.value.foto" alt="">
-          <router-link :to="`/Chat/${user.id}`">
-
-            <div class="GrupName">{{ user.value.alias }}</div>
-        </router-link>
-          <div class="GrupName">{{ user.value.conexion }}</div>
-
-          <button class="button">
-            Seguir
-          </button>
+          <div :class="user.value.conexion ? 'circuloGreen' : 'circuloRed'"></div>
+          <div class="alias">{{ user.value.alias }}</div>
+          <router-link class="button" :to="`/Chat/${user.id}`">
+            <font-awesome-icon id="icon" icon="comments" /> Chat
+          </router-link>
         </article>
       </div>
     </section>
   </div>
 </template>
 <style scoped>
-.button2{
+.alias {
+  text-decoration: none;
+  position: relative;
+  left: -13px;
+}
+
+.container-nube .alias {
+  color: #f8fdff;
+}
+
+.container2-nube .alias {
+  color: #0C1D25;
+}
+
+.circuloRed {
+  position: relative;
+  left: -14px;
+  top: 11px;
+  height: 7px;
+  width: 7px;
+  background-color: red;
+  border-radius: 100%;
+}
+
+.circuloGreen {
+  position: relative;
+  left: -14px;
+  top: 11px;
+  height: 7px;
+  width: 7px;
+  background-color: green;
+  border-radius: 100%;
+
+}
+
+.button2 {
   background-color: transparent;
   border: 1px solid #3192c7;
   color: #3192c7;
@@ -93,24 +124,29 @@ export default {
   width: 100px;
   cursor: pointer;
   margin-left: 5%;
-  
-}
-img{
-    height: 30px;
-    width: 30px;
-    margin: 2px;
-    border-radius: 100%;
-    object-fit: cover;
 
 }
+
+img {
+  height: 30px;
+  width: 30px;
+  margin: 2px;
+  border-radius: 100%;
+  object-fit: cover;
+
+}
+
 .container-nube .button {
   background-color: transparent;
-  border: 0;
+  border: 1px solid #3192c7;
+  padding: 5px;
+  border-radius: 10px;
   outline: 0;
   color: #3192c7;
   cursor: pointer;
   position: absolute;
-  left:  220px;
+  left: 190px;
+  text-decoration: none;
 }
 
 .container-nube .router {
@@ -211,11 +247,14 @@ section::-webkit-scrollbar-thumb:hover {
 
 .container2-nube .button {
   background-color: transparent;
-  border: 0;
+  border: 1px solid #3192c7;
+  padding: 5px;
+  border-radius: 10px;
   outline: 0;
   color: #3192c7;
-  position:absolute;
-  left: 220px;
+  position: absolute;
+  left: 190px;
+  text-decoration: none;
 }
 
 .container2-nube .router {
@@ -284,5 +323,4 @@ section div {
   margin: 0 5px;
 
 
-}
-</style>
+}</style>

@@ -9,11 +9,11 @@
       </div>
       <div class="perfil">
         <router-link :class="modoNocturno ? 'router' : 'router'" to="/ImgConfig">
-          <img :src="usuario.foto" alt="">
+          <img :src="form.foto" alt="">
         </router-link>
         <div>
-          <p>{{ usuario.alias }}</p>
-          <p>{{ usuario.correo }}</p>
+          <p>{{ form.alias }}</p>
+          <p>{{ form.correo }}</p>
         </div>
       </div>
       <li>
@@ -100,16 +100,16 @@ export default {
     const modoNocturno = computed(() => store.state.modoNocturno);
     const usuarioConexion = computed(() => store.state.conexion);
     const usuario = computed(() => store.state.usuario);
-        let id = computed(() => store.state.id);
-        let form =
-        {
-            alias: usuario.value.alias,
-            contrasena: usuario.value.contrasena,
-            correo: usuario.value.correo,
-            foto: usuario.value.foto,
-            conexion: usuario.value.conexion
+    let id = computed(() => store.state.id);
+    let form =
+    {
+      alias: localStorage.getItem('alias') || usuario.value.alias,
+      contrasena: localStorage.getItem('contrasena') || usuario.value.contrasena,
+      correo: localStorage.getItem('correo') || usuario.value.correo,
+      foto: localStorage.getItem('foto') || usuario.value.foto,
+      conexion: localStorage.getItem('conexion') || usuario.value.conexion
 
-        }
+    }
     const isOpen = ref(true)
 
     const toggleDropdown = () => {
@@ -125,9 +125,19 @@ export default {
       const value = form
       const state = false
 
-            id = id.value
-     await store.dispatch('conexion', { value, id, state })
+      id = localStorage.getItem('id') || id.value
+     
+
+      await store.dispatch('conexion', { value, id, state })
       store.dispatch('setConexion')
+      localStorage.removeItem('alias')
+      localStorage.removeItem('contrasena')
+      localStorage.removeItem('correo')
+      localStorage.removeItem('foto')
+      localStorage.removeItem('conexion')
+      localStorage.removeItem('state')
+      localStorage.removeItem('id')
+
       router.push('/')
     }
 
@@ -142,7 +152,8 @@ export default {
       modoNocturno,
       modo,
       cerrarSesion,
-      usuario
+      usuario,
+      form
     };
   },
   components: { Switch }
@@ -152,9 +163,10 @@ export default {
 <style scoped>
 /* Estilos de ejemplo para el menú desplegable */
 /* Estilos para el interruptor cuando está activado */
- .perfil{
+.perfil {
   display: flex;
 }
+
 .barside .perfil div {
   display: flex;
   flex-direction: column;
@@ -163,6 +175,7 @@ export default {
   margin: 20px 5px;
   font-size: 13px;
 }
+
 .barside2 .perfil div {
   display: flex;
   flex-direction: column;
@@ -171,9 +184,11 @@ export default {
   margin: 20px 5px;
   font-size: 13px;
 }
-.perfil p{
+
+.perfil p {
   margin-bottom: 5px;
 }
+
 img {
   width: 45px;
   height: 45px;
@@ -279,10 +294,12 @@ ul button {
   color: #3192c7;
 
 }
+
 .barside #icon {
   color: #ccc;
 
 }
+
 ul li {
   padding: 8px;
   cursor: pointer;
@@ -309,6 +326,5 @@ ul.show {
   right: -60%;
   transition: 0.5s ease-out;
 
-}
-</style>
+}</style>
   
