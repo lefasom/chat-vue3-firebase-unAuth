@@ -16,12 +16,12 @@
           <p>{{ form.correo }}</p>
         </div>
       </div>
-      <li>
+      <!-- <li>
         <router-link :class="modoNocturno ? 'router' : 'router'" to="/Descubre">
           <font-awesome-icon id="icon" icon="globe" />
           <p>Descubre</p>
         </router-link>
-      </li>
+      </li> -->
       <li>
         <router-link :class="modoNocturno ? 'router' : 'router'" to="/CreateChat">
           <font-awesome-icon id="icon" icon="comments" />
@@ -57,12 +57,12 @@
       <div class="flex">
         <button @click="toggleDropdown">X</button>
       </div>
-      <li>
+      <!-- <li>
         <router-link :class="modoNocturno ? 'router' : 'router'" to="/Descubre">
           <font-awesome-icon id="icon" icon="globe" />
           <p>Descubre</p>
         </router-link>
-      </li>
+      </li> -->
       <li>
         <router-link :class="modoNocturno ? 'router' : 'router'" to="/CreateUser">
           <font-awesome-icon id="icon" icon="user-plus" />

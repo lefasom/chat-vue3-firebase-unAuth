@@ -10,13 +10,13 @@ import Chat from '../views/Chat.vue'
 import Principal from '../views/Principal.vue'
 
 const routes = [
+  // {
+  //   path: '/',
+  //   name: 'Principal',
+  //   component: Principal
+  // },
   {
     path: '/',
-    name: 'Principal',
-    component: Principal
-  },
-  {
-    path: '/Descubre',
     name: 'Descubre',
     component: Descubre
   },

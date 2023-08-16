@@ -24,6 +24,7 @@ export default {
     // console.log(usuarios.value[0])
     onMounted(async () => {
       await store.dispatch('fetchUsuarios')
+      await store.dispatch('fetchMensajes')
     })
 
     return {
@@ -43,6 +44,11 @@ export default {
 <template>
   <div :class="modoNocturno ? 'container-nube' : 'container2-nube'">
     <LogoAndMenu />
+    <div class="img">
+      <p>
+        ch<font-awesome-icon id="icon" icon="comments" />tea
+      </p>
+    </div>
     <input type="text" placeholder="Buscar palabra clave o id">
     <button v-if="tabla" class="button2" @click="changeTable">
       <font-awesome-icon icon="arrow-right-rotate" />
@@ -81,6 +87,14 @@ export default {
   </div>
 </template>
 <style scoped>
+ .img p {
+  margin: auto;
+  font-size: 88px;
+  color: #3192c7;
+  /* background-color: #232D36; */
+text-align: center;
+margin: 20px;
+}
 .alias {
   text-decoration: none;
   position: relative;
@@ -120,11 +134,11 @@ export default {
   background-color: transparent;
   border: 1px solid #3192c7;
   color: #3192c7;
-  padding: 5px;
-  width: 100px;
+  width: 80px;
   cursor: pointer;
   margin-left: 5%;
-
+  padding: 7px;
+  border-radius: 10px;
 }
 
 img {
@@ -144,8 +158,6 @@ img {
   outline: 0;
   color: #3192c7;
   cursor: pointer;
-  position: absolute;
-  left: 190px;
   text-decoration: none;
 }
 
@@ -190,9 +202,9 @@ img {
 }
 
 .container-nube section {
-  border: 1px solid #FEFDFC;
+  border: 1px solid #0C1D25;
   width: 90%;
-  height: 70vh;
+  height: 40vh;
   margin: auto;
   margin-top: 20px;
   color: #FEFDFC;
@@ -252,7 +264,6 @@ section::-webkit-scrollbar-thumb:hover {
   border-radius: 10px;
   outline: 0;
   color: #3192c7;
-  position: absolute;
   left: 190px;
   text-decoration: none;
 }
@@ -298,16 +309,16 @@ section::-webkit-scrollbar-thumb:hover {
 }
 
 .container2-nube section {
-  border: 1px solid #0C1D25;
+  border: 1px solid #f8fdff;
   width: 90%;
-  height: 70vh;
+  height: 40vh;
   margin: auto;
   margin-top: 20px;
   color: #0C1D25;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   overflow: hidden;
   overflow-y: scroll;
-  background-color: #ccc;
+  background-color: #3192c7;
 }
 
 .container2-nube article {
