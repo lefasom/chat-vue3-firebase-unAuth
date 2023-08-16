@@ -318,7 +318,7 @@ section::-webkit-scrollbar-thumb:hover {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   overflow: hidden;
   overflow-y: scroll;
-  background-color: #3192c7;
+  background-color: #074b6f;
 }
 
 .container2-nube article {
