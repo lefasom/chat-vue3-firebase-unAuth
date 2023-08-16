@@ -24,9 +24,9 @@ export default {
         const diferenciaHoraria = -300; // -3 horas * 60 minutos/hora = -180 minutos
         // Ajustar la hora según la diferencia horaria
         fechaActual.setMinutes(fechaActual.getMinutes() + diferenciaHoraria);
-        // const año = fechaActual.getFullYear()
-        // const mes = fechaActual.getMonth() + 1
-        // const día = fechaActual.getDate()
+        const ano = fechaActual.getFullYear()
+        const mes = fechaActual.getMonth() + 1
+        const día = fechaActual.getDate()
         const hora = fechaActual.getHours()
         const minutos = fechaActual.getMinutes()
         // const segundos = fechaActual.getSeconds()
@@ -38,7 +38,8 @@ export default {
             id_receptor: props.id,
             mensaje: '',
             fecha: serverTimestamp(),
-            hora: `${hora}:${minutos}`
+            hora: `${hora}:${minutos}`,
+            fecha_e: `${día + 1} / ${mes} / ${ano} `
 
         })
         const send = async () => {
@@ -46,11 +47,24 @@ export default {
             const value = msj.value
             await store.dispatch('crearMensaje', value);
             msj.value.mensaje = ''
+            fechas = []
 
 
 
         }
+        let fechas = []
+        const chequear = (value) => {
+            if (fechas.includes(value)) {
+                return ''
+            } else {
+                fechas.push(value)
+                return value
+            }
 
+        }
+        const deleteMensaje = (id)=>{
+            store.dispatch('borrarMensaje', id);
+        }
         onMounted(async () => {
             const mensajesRef = collection(db, 'mensajes');
             const orderedQuery = query(mensajesRef, orderBy('fecha'));
@@ -62,7 +76,7 @@ export default {
                 }));
                 store.commit('setMensajes', msj);
             });
-
+console.log(fechas)
             await store.dispatch('fetchUsuarios');
         });
         return {
@@ -70,7 +84,9 @@ export default {
             msj,
             modoNocturno,
             mensajes,
-            idemisor
+            idemisor,
+            chequear,
+            deleteMensaje
         }
     }
 }
@@ -92,9 +108,9 @@ export default {
         </section>
         <section v-for="mensaje in mensajes" :key="mensaje.id" class="panel-body">
             <div class="messages-container">
-                <!-- <div class="fecha">
-                    <p>12 de Julio de 2023</p>
-                </div> -->
+                <div v-if="chequear(mensaje.value.fecha_e) != ''" class="fecha">
+                    <p>{{ mensaje.value.fecha_e }}</p>
+                </div>
 
 
 
@@ -102,7 +118,7 @@ export default {
 
 
                 <div v-if="mensaje.value.id_emisor != idemisor" class="msj-me">
-                    <img src="../assets/messi-perfil.jpg" alt="">
+                    <img :src="mensaje.value.foto_emisor" alt="">
 
                     <div class="nodo">
                         <h3>{{ mensaje.value.nombre_emisor }}</h3>
@@ -126,7 +142,7 @@ export default {
                     </div>
                     <div class="float">
                         <img :src="mensaje.value.foto_emisor" alt="">
-                        <font-awesome-icon id="icon" icon="trash" />
+                        <font-awesome-icon @click="deleteMensaje(mensaje.id)" id="icon" icon="trash" />
                     </div>
                 </div>
             </div>
@@ -149,6 +165,15 @@ export default {
 /* nocturno */
 .nocturno {
     margin: 65px 0;
+    background-color: #0C1D25;
+    height: 100vh;
+}
+
+.dia {
+    margin: 65px 0;
+    background-color: #EFEAE2;
+    height: 100vh;
+
 }
 
 .float {
@@ -438,7 +463,7 @@ button {
 .dia .msj-me span {
     width: 100%;
     text-align: right;
-    color: #fff;
+    color: #798185;
     font-size: 13px;
 
 }

@@ -49,6 +49,9 @@ const store = createStore({
       const collectionRef = collection(db, 'mensajes');
       const docRef = await addDoc(collectionRef, value);
     },
+    async borrarMensaje({ commit }, id) {
+      await deleteDoc(doc(db, 'mensajes', id))
+  },
     // modoNocturno
 
     modificoModoNocturno({ commit }) {
