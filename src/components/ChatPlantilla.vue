@@ -109,7 +109,7 @@ export default {
                 <h3>Lionel Messi </h3>
             </div> -->
         </section>
-        <section v-for="mensaje in mensajes" :key="mensaje.id" class="panel-body">
+        <section v-for="mensaje in mensajes" :key="mensaje.id" :class="(mensaje.value.id_emisor === idemisor && mensaje.value.id_receptor === props.id) || (mensaje.value.id_emisor === props.id && mensaje.value.id_receptor === idemisor)?'panel-body':'none'">
             <div v-if="(mensaje.value.id_emisor === idemisor && mensaje.value.id_receptor === props.id) || (mensaje.value.id_emisor === props.id && mensaje.value.id_receptor === idemisor)"
                 class="messages-container">
                 <div v-if="chequear(mensaje.value.fecha_e) != ''" class="fecha">
