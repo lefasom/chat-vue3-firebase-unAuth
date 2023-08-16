@@ -271,7 +271,7 @@ ul button {
   width: 60%;
   height: 100%;
   transition: 0.5s ease-out;
-  border-left: 3 solid #555e62;
+  border-left: 1px solid #555e62;
 
 }
 
@@ -286,7 +286,7 @@ ul button {
   width: 60%;
   height: 100%;
   transition: 0.5s ease-out;
-  border-left: 3 solid #bed8e6;
+  border-left: 1px solid #bed8e6;
 
 }
 

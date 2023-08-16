@@ -100,7 +100,7 @@ export default {
 
         <section class="panel-sup">
             <div class="panel-sup-phote">
-                <router-link to="/Descubre">
+                <router-link to="/">
                     <font-awesome-icon id="icon" icon="arrow-left" />
                 </router-link>
                 <!-- <img src="../assets/messi-perfil.jpg" alt=""> -->
