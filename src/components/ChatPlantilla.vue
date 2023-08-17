@@ -118,7 +118,8 @@ export default {
 }
 </script>
 
-<template>
+<template >
+    <div :class="modoNocturno ? 'color1' : 'color2'">
     <div :class="modoNocturno ? 'nocturno' : 'dia'">
         <section class="panel-sup">
             <div class="panel-sup-phote">
@@ -176,9 +177,19 @@ export default {
             </button>
         </section>
     </div>
+</div>
+
 </template>
 
 <style scoped>
+.color1{
+    background-color: #0C1D25;
+    height: 100vh;
+}
+.color2{
+    background-color: #EFEAE2;
+    height: 100vh;
+}
 .nocturno {
     padding: 77px 0;
     background-color: #0C1D25;
