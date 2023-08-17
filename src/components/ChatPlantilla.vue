@@ -12,6 +12,7 @@ export default {
     },
     props: ['id'],
     name: 'ChatPlantillas',
+    
     setup(props) {
         const store = useStore()
 
@@ -22,7 +23,7 @@ export default {
         idemisor = localStorage.getItem('id') || idemisor
 
         // Fecha
-        let fechas = []
+        const fechas = []
         const fechaActual = new Date();
         const diferenciaHoraria = -300; // -3 horas * 60 minutos/hora = -180 minutos
         // Ajustar la hora según la diferencia horaria
@@ -85,11 +86,11 @@ export default {
         }
 
         const chequear = (value) => {
-            if (fechas.includes(value)) {
-                return ''
-            } else {
+            if (!fechas.includes(value)) {
                 fechas.push(value)
                 return value
+            } else {
+                return ''
             }
         }
 
@@ -135,7 +136,7 @@ export default {
             :class="(mensaje.value.id_emisor === idemisor && mensaje.value.id_receptor === props.id) || (mensaje.value.id_emisor === props.id && mensaje.value.id_receptor === idemisor) ? 'panel-body' : 'none'">
             <div v-if="(mensaje.value.id_emisor === idemisor && mensaje.value.id_receptor === props.id) || (mensaje.value.id_emisor === props.id && mensaje.value.id_receptor === idemisor)"
                 class="messages-container">
-                <div v-if="chequear(mensaje.value.fecha_e) != ''" class="fecha">
+                <div v-if="chequear(mensaje.value.fecha_e) !== ''" class="fecha">
                     <p>{{ mensaje.value.fecha_e }}</p>
                 </div>
 
@@ -602,4 +603,5 @@ button {
 .dia .panel-body::-webkit-scrollbar-thumb:hover {
     background-color: #fff;
     /* Color de la barra en sí al pasar el cursor sobre ella */
-}</style>
+}
+</style>
