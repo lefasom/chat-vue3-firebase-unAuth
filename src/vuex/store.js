@@ -1,7 +1,7 @@
 // src/store.js
 import { createStore } from 'vuex'
 import { db } from '../firebase/firebase'
-import { getDocs, collection, doc, deleteDoc, addDoc, updateDoc, getDoc, query, orderBy } from 'firebase/firestore'
+import { getDocs, collection, doc, deleteDoc, addDoc, updateDoc, getDoc, query, orderBy, onSnapshot } from 'firebase/firestore'
 
 const store = createStore({
   state() {
@@ -41,9 +41,16 @@ const store = createStore({
   },
   actions: {
     // chat
-    async fetchMensajes({ commit },msj) {
-
-      commit('setMensajes', msj)
+    async fetchMensajes({ commit }) {
+      const mensajesRef = collection(db, 'mensajes');
+      const orderedQuery = query(mensajesRef, orderBy('fecha'));
+      onSnapshot(orderedQuery, (snapshot) => {
+          const msj = snapshot.docs.map((doc) => ({
+              id: doc.id,
+              value: doc.data()
+          }));
+          commit('setMensajes', msj)
+      });
     },
     async crearMensaje({ commit }, value) {
       const collectionRef = collection(db, 'mensajes');
@@ -60,13 +67,16 @@ const store = createStore({
     // usuarios
 
     async fetchUsuarios({ commit }) {
-      let us = []
-      const querySnapshot = await getDocs(collection(db, 'usuario'));
-      us = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        value: doc.data()
-      }))
-      commit('setUsuarios', us)
+      const mensajesRef = collection(db, 'usuario');
+      const orderedQuery = query(mensajesRef);
+      onSnapshot(orderedQuery, (snapshot) => {
+          const us = snapshot.docs.map((doc) => ({
+              id: doc.id,
+              value: doc.data()
+          }));
+
+          commit('setUsuarios', us)
+        });
     },
     setConexion({ commit }) {
       commit('setConexion')

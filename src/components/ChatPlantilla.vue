@@ -14,13 +14,15 @@ export default {
     name: 'ChatPlantillas',
     setup(props) {
         const store = useStore()
+
         const modoNocturno = computed(() => store.state.modoNocturno)
+        const mensajes = computed(() => store.state.mensajes);
+        const usuario = computed(() => store.state.usuario);
         let idemisor = computed(() => store.state.id);
         idemisor = localStorage.getItem('id') || idemisor
-        const usuario = computed(() => store.state.usuario);
-        let fechas = []
-        const mensajes = computed(() => store.state.mensajes);
 
+        // Fecha
+        let fechas = []
         const fechaActual = new Date();
         const diferenciaHoraria = -300; // -3 horas * 60 minutos/hora = -180 minutos
         // Ajustar la hora según la diferencia horaria
@@ -32,6 +34,37 @@ export default {
         const minutos = fechaActual.getMinutes()
         // const segundos = fechaActual.getSeconds()
 
+        const numeroANombre = (mes) => {
+            switch (mes) {
+                case 1: return "enero"
+                    break;
+                case 1: return "enero"
+                    break;
+                case 2: return "febrero"
+                    break;
+                case 3: return "marzo"
+                    break;
+                case 4: return "abril"
+                    break;
+                case 5: return "mayo"
+                    break;
+                case 6: return "junio"
+                    break;
+                case 7: return "julio"
+                    break;
+                case 8: return "agosto"
+                    break;
+                case 9: return "septiembre"
+                    break;
+                case 10: return "octubre"
+                    break;
+                case 11: return "noviembre"
+                    break;
+                case 12: return "diciembre"
+                    break;
+            }
+        }
+
         const msj = ref({
             foto_emisor: localStorage.getItem('foto') || usuario.value.foto,
             nombre_emisor: localStorage.getItem('alias') || usuario.value.alias,
@@ -40,9 +73,10 @@ export default {
             mensaje: '',
             fecha: serverTimestamp(),
             hora: `${hora}:${minutos}`,
-            fecha_e: `${día + 1} / ${mes} / ${ano} `
+            fecha_e: `${día + 1} de ${numeroANombre(mes)} del ${ano} `
 
         })
+
         const send = () => {
             // console.log('msj', msj.value.mensaje)
             const value = msj.value
@@ -51,43 +85,31 @@ export default {
         }
 
         const chequear = (value) => {
-            // console.log(fechas)
-            // console.log('f', fechas.includes(value))
             if (fechas.includes(value)) {
                 return ''
             } else {
                 fechas.push(value)
                 return value
             }
-
         }
+
         const deleteMensaje = (id) => {
             store.dispatch('borrarMensaje', id);
         }
-        onMounted(async () => {
-            console.log(mensajes)
-            console.log(props.id)
 
-            const mensajesRef = collection(db, 'mensajes');
-            const orderedQuery = query(mensajesRef, orderBy('fecha'));
-            onSnapshot(orderedQuery, (snapshot) => {
-                const msj = snapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    value: doc.data()
-                }));
-                store.commit('setMensajes', msj);
-            });
-            // console.log(fechas)
+        onMounted(async () => {
+            await store.dispatch('fetchMensajes');
             await store.dispatch('fetchUsuarios');
         });
+
         return {
             send,
+            chequear,
+            deleteMensaje,
             msj,
             modoNocturno,
             mensajes,
             idemisor,
-            chequear,
-            deleteMensaje,
             props,
             fechas
         }
@@ -97,7 +119,6 @@ export default {
 
 <template>
     <div :class="modoNocturno ? 'nocturno' : 'dia'">
-
         <section class="panel-sup">
             <div class="panel-sup-phote">
                 <router-link to="/">
@@ -109,22 +130,17 @@ export default {
                 <h3>Lionel Messi </h3>
             </div> -->
         </section>
-        <section v-for="mensaje in mensajes" :key="mensaje.id" :class="(mensaje.value.id_emisor === idemisor && mensaje.value.id_receptor === props.id) || (mensaje.value.id_emisor === props.id && mensaje.value.id_receptor === idemisor)?'panel-body':'none'">
+
+        <section v-for="mensaje in mensajes" :key="mensaje.id"
+            :class="(mensaje.value.id_emisor === idemisor && mensaje.value.id_receptor === props.id) || (mensaje.value.id_emisor === props.id && mensaje.value.id_receptor === idemisor) ? 'panel-body' : 'none'">
             <div v-if="(mensaje.value.id_emisor === idemisor && mensaje.value.id_receptor === props.id) || (mensaje.value.id_emisor === props.id && mensaje.value.id_receptor === idemisor)"
                 class="messages-container">
                 <div v-if="chequear(mensaje.value.fecha_e) != ''" class="fecha">
                     <p>{{ mensaje.value.fecha_e }}</p>
                 </div>
 
-
-
-
-
-
-
                 <div v-if="mensaje.value.id_emisor != idemisor" class="msj-me">
                     <img :src="mensaje.value.foto_emisor" alt="">
-
                     <div class="nodo">
                         <h3>{{ mensaje.value.nombre_emisor }}</h3>
                         <p>
@@ -133,7 +149,6 @@ export default {
                         <span>{{ mensaje.value.hora }}</span>
 
                     </div>
-
                 </div>
 
                 <div v-else class="msj-you">
@@ -143,20 +158,16 @@ export default {
                             {{ mensaje.value.mensaje }}
                         </p>
                         <span>{{ mensaje.value.hora }}</span>
-
                     </div>
                     <div class="float">
                         <img :src="mensaje.value.foto_emisor" alt="">
                         <font-awesome-icon @click="deleteMensaje(mensaje.id)" id="icon" icon="trash" />
                     </div>
                 </div>
+
             </div>
-
-
-
-
-
         </section>
+
         <section class="panel-inf">
             <input v-model="msj.mensaje" type="text" placeholder="Mensaje">
             <button @click="send">
@@ -167,18 +178,14 @@ export default {
 </template>
 
 <style scoped>
-/* nocturno */
 .nocturno {
     padding: 77px 0;
     background-color: #0C1D25;
-
 }
 
 .dia {
     padding: 77px 0;
-
     background-color: #EFEAE2;
-
 }
 
 .float {
@@ -198,13 +205,11 @@ export default {
     text-align: right;
     color: #7d7985;
     font-size: 13px;
-
     font-size: 14px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     padding: 5px;
     border-radius: 10px;
 }
-
 
 .nocturno .panel-body {
     background-color: #0C1D25;
@@ -253,13 +258,10 @@ export default {
     text-align: right;
     color: #e3eaee;
     font-size: 13px;
-
 }
 
 .nocturno .msj-me .nodo {
-
     display: flex;
-    /* justify-content: center; */
     padding: 10px;
     max-width: 70%;
     margin-left: 9px;
@@ -290,7 +292,6 @@ export default {
 
 .nocturno .panel-body .msj-me p {
     margin-top: 5px;
-
     font-size: 15px;
     color: #FEFDFC;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -298,12 +299,9 @@ export default {
 
 .nocturno .panel-body .msj-you p {
     margin-top: 5px;
-
     font-size: 15px;
-
     color: #FEFDFC;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
 }
 
 .nocturno .panel-sup {
@@ -354,7 +352,6 @@ button {
     color: #FEFDFC;
     padding: 15px;
     padding-right: 5px;
-
 }
 
 .nocturno .panel-inf #icon {
@@ -377,7 +374,6 @@ button {
     height: 40px;
     border-radius: 100%;
     object-fit: cover;
-
 }
 
 .panel-body img {
@@ -385,16 +381,11 @@ button {
     height: 30px;
     border-radius: 100%;
     object-fit: cover;
-
-
 }
-
 
 .nocturno .panel-body::-webkit-scrollbar {
     width: 8px;
-    /* Ancho de la barra */
     background-color: #0C1D25;
-    /* Color de fondo de la barra */
 }
 
 .nocturno .panel-body::-webkit-scrollbar-thumb {
@@ -409,7 +400,6 @@ button {
     /* Color de la barra en sí al pasar el cursor sobre ella */
 }
 
-/* dia */
 .dia .fecha p {
     background-color: #ffffff;
     text-align: right;
@@ -470,13 +460,10 @@ button {
     text-align: right;
     color: #798185;
     font-size: 13px;
-
 }
 
 .dia .msj-me .nodo {
-
     display: flex;
-    /* justify-content: center; */
     padding: 10px;
     max-width: 70%;
     margin-left: 9px;
@@ -507,7 +494,6 @@ button {
 
 .dia .panel-body .msj-me p {
     margin-top: 5px;
-
     font-size: 15px;
     color: #333;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -515,12 +501,9 @@ button {
 
 .dia .panel-body .msj-you p {
     margin-top: 5px;
-
     font-size: 15px;
-
     color: #232D36;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
 }
 
 .dia .panel-sup {
@@ -571,7 +554,6 @@ button {
     color: #f6fbff;
     padding: 15px;
     padding-right: 5px;
-
 }
 
 .dia .panel-inf #icon {
@@ -594,7 +576,6 @@ button {
     height: 40px;
     border-radius: 100%;
     object-fit: cover;
-
 }
 
 .panel-body img {
@@ -602,9 +583,7 @@ button {
     height: 30px;
     border-radius: 100%;
     object-fit: cover;
-
 }
-
 
 .dia .panel-body::-webkit-scrollbar {
     width: 8px;
@@ -623,5 +602,4 @@ button {
 .dia .panel-body::-webkit-scrollbar-thumb:hover {
     background-color: #fff;
     /* Color de la barra en sí al pasar el cursor sobre ella */
-}
-</style>
+}</style>
